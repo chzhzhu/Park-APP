@@ -1,0 +1,52 @@
+{
+    "namespace": "com.oracle.hackson.webapp.Schema.avrotojava",
+    "type": "record",
+    "name": "ParkPort",
+    "fields": [
+        {"name": "longitude", "type": "double"},
+        {"name": "latitude",  "type": "double"},
+        {"name": "parkPortId", "type": "int"},
+        {"name": "equNum", "type": "int"},
+        {"name": "unlockedEquId", "type": "int"},
+        {"name": "lockedEquId", "type": "int"},
+        {"name": "disabledEquId", "type": "int"},
+        {"name": "equ",
+         "type": {
+                    "type": "array",
+                    "items": {
+                              "type":"record",
+                              "name":"Equipment",
+                              "namespace":"com.oracle.hackson.webapp.Schema.avrotojava",
+                              "fields":[
+                                  {
+                                     "name":"EquId",
+                                     "type":"long"
+                                  },
+                                  {
+                                     "name":"alive",
+                                     "type":"boolean"
+                                  },
+                                  {
+                                      "name":"equStatus",
+                                      "type":"string"
+                                  },
+                                  {
+                                      "name":"ping",
+                                      "type" : {
+                                               "type": "record",
+                                               "name":"Ping",
+                                               "fields": [{
+                                                              "name":"reset",
+                                                              "type":"boolean"
+                                               }]
+                                      }
+
+                                  }
+
+                              ]
+                    }
+                }
+        }
+
+    ]
+}
