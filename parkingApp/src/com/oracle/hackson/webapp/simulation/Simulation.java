@@ -1,5 +1,9 @@
 package com.oracle.hackson.webapp.simulation;
 
+import com.oracle.hackson.webapp.kafka.demo.ConsumerDemo;
+import com.oracle.hackson.webapp.kafka.demo.KafkaProperties;
+import com.oracle.hackson.webapp.kafka.demo.ProducerDemo;
+
 import java.util.Timer;
 
 public class Simulation {
@@ -9,9 +13,13 @@ public class Simulation {
     public static void main(String[] args) {
         Simulation simulation_a = new Simulation(10);
         simulation_a.portArray = simulation_a.creatParkingPort(simulation_a.num);
-        Timer timer = new Timer();
-        timer.schedule(new DoHeartBeatCheck(simulation_a.portArray[0]), 1000, 3000);
 
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new DoHeartBeatCheck(simulation_a.portArray[0]), 0, 10000);
+        ProducerDemo producerThread = new ProducerDemo(KafkaProperties.TOPIC, true, simulation_a.portArray[0]);
+        ConsumerDemo consumerThread = new ConsumerDemo(com.oracle.hackson.webapp.kafka.demo.KafkaProperties.TOPIC);
+        producerThread.start();
+        consumerThread.start();
     }
 
     public Simulation(int pnum) {

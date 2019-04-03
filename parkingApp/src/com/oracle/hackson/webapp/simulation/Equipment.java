@@ -85,8 +85,8 @@ public class Equipment {
                 ping.refresh();
             }
         };
-        long delay = 1000L;
-        long period = 3000L;
-        timer.schedule(new myTimerTask(), delay, period);
+        long delay = 0L;
+        long period = 10000L;
+        timer.scheduleAtFixedRate(new myTimerTask(), delay, period);
     }
 }

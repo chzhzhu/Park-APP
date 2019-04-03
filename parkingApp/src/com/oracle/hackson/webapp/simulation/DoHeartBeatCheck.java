@@ -2,9 +2,6 @@ package com.oracle.hackson.webapp.simulation;
 
 import java.util.TimerTask;
 
-import com.oracle.hackson.webapp.kafka.demo.KafkaProperties;
-import com.oracle.hackson.webapp.kafka.demo.ProducerDemo;
-import com.oracle.hackson.webapp.kafka.demo.ConsumerDemo;
 
 public class DoHeartBeatCheck extends TimerTask{
     public int TIMEOUT_COUNT = 5;
@@ -14,8 +11,7 @@ public class DoHeartBeatCheck extends TimerTask{
         this.parkPort = p;
     }
     public void run() {
-        ProducerDemo producerThread = new ProducerDemo(KafkaProperties.TOPIC, true, parkPort);
-        ConsumerDemo consumerThread = new ConsumerDemo(com.oracle.hackson.webapp.kafka.demo.KafkaProperties.TOPIC);
+
         for (Equipment e : parkPort.equ) {
             if (e.ping.reset) {
                 e.ping.reset = false;
@@ -31,9 +27,6 @@ public class DoHeartBeatCheck extends TimerTask{
                 }
             }
         }
-        producerThread.start();
-        consumerThread.start();
-        //producerThread.interrupt();
-        //consumerThread.interrupt();
+
     }
 }
