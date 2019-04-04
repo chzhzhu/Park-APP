@@ -9,6 +9,8 @@ public class KafkaProperties {
     public static final String TOPIC2 = "topic2";
     public static final String TOPIC3 = "topic3";
     public static final String CLIENT_ID = "SimpleConsumerDemoClient";
+    public static final String DATABASE = "parkingApp";
+    public static final String PARKPORT_COL = "parkport";
 
     private KafkaProperties() {}
 }
