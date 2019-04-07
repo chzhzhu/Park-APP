@@ -46,10 +46,17 @@ public class ConsumerDemo extends ShutdownableThread{
             String jsonStr = gson.toJson(record.value());
             BasicDBObject dbObject = (BasicDBObject)JSON.parse(jsonStr);
             Document document = new Document(dbObject.toMap());
-            MongoDBUtils.insert(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,document);
-            for (Equipment e : record.value().equ) {
-
-                System.out.println("Received message: " + e.getEquId() + "'s alive statue is " + e.isAlive() + ", at offset " + record.offset());
+            String result = MongoDBUtils.findByField(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,"parkPortId",record.key());
+            if (result == null){
+                MongoDBUtils.insert(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,document);
+            } else {
+                for (Equipment e : record.value().equ) {
+                    String equJson = gson.toJson(e);
+                    BasicDBObject equDbObject = (BasicDBObject)JSON.parse(equJson);
+                    Document equDocument = new Document(dbObject.toMap());
+                    MongoDBUtils.update(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,"equId",String.valueOf(e.getEquId()),equDocument);
+                    System.out.println("Received message: " + e.getEquId() + "'s alive statue is " + e.isAlive() + ", at offset " + record.offset());
+                }
             }
         }
     }

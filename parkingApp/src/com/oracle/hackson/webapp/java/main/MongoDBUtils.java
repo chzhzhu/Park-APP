@@ -37,6 +37,12 @@ public class MongoDBUtils {
         collection.insertOne(document);
     }
 
+    public static void update(String databaseName, String collectionName, String fieldName, String value, Document dbObject){
+        MongoDatabase mongoDB = connectToDB(databaseName);
+        MongoCollection collection = mongoDB.getCollection(collectionName);
+        collection.updateMany(eq(fieldName,value),dbObject);
+    }
+
     public String findAllEquByParkPort(String databaseName,String collectionName,String parkPortId) {
         MongoCollection collection = getCollection(databaseName,collectionName);
         FindIterable<Document> findIterable = collection.find(eq("parkPortId", parkPortId));
@@ -67,7 +73,7 @@ public class MongoDBUtils {
         return result;
     }
 
-    public String findByField (String databaseName,String collectionName, String fieldName, String key) {
+    public static String findByField (String databaseName,String collectionName, String fieldName, String key) {
         MongoCollection collection = getCollection(databaseName,collectionName);
         FindIterable<Document> findIterable = collection.find(eq(fieldName, key));
         Document document = (Document) findIterable.first();
