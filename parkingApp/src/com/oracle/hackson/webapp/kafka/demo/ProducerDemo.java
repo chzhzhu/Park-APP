@@ -1,8 +1,6 @@
 package com.oracle.hackson.webapp.kafka.demo;
 
-import com.oracle.hackson.webapp.simulation.DoHeartBeatCheck;
 import com.oracle.hackson.webapp.simulation.ParkPort;
-import com.oracle.hackson.webapp.simulation.Simulation;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 import java.util.Properties;

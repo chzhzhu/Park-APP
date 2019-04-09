@@ -3,17 +3,18 @@ package com.oracle.hackson.webapp.java.main;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.util.JSON;
 import com.oracle.hackson.webapp.simulation.Equipment;
-import com.oracle.hackson.webapp.simulation.ParkPort;
+import com.oracle.hackson.webapp.simulation.Simulation;
 import org.bson.Document;
 
 @Path("parkport")
 public class EuqEventResource {
-    private String DB_NAME = "ParkingApp";
-    private String COLLECTION_NAME = "parkport";
+    private String DB_NAME = "parkingApp";
+    private String COLLECTION_NAME_EQU = "equipment";
+    private String COLLECTION_NAME_PARKPROT = "parkport";
 
     @POST
     @Path("unlock")
@@ -22,8 +23,8 @@ public class EuqEventResource {
     public String unlockEqu(String equInfo){
         String equId = getEquId(equInfo);
         Document document = getDocument(equInfo);
-        if(validateEqu(equId, "unlock")){
-            MongoDBUtils.update(DB_NAME,COLLECTION_NAME,"equId",equId,document);
+        if(validateEqu(equId, "Unlocked")){
+            MongoDBUtils.update(DB_NAME, COLLECTION_NAME_EQU,"equId",equId,document);
             return "Unlock successfully";
         }else{
             return "Unlock Failed";
@@ -37,17 +38,34 @@ public class EuqEventResource {
     public String lockEqu(String equInfo){
         Document document = getDocument(equInfo);
         String equId = getEquId(equInfo);
-        if(validateEqu(equId, "lock")){
-            MongoDBUtils.update(DB_NAME,COLLECTION_NAME,"equId",equId,document);
+        if(validateEqu(equId, "Locked")){
+            MongoDBUtils.update(DB_NAME, COLLECTION_NAME_EQU,"equId",equId,document);
             return "Lock successfully";
         }else{
             return "Lock Failed";
         }
     }
 
+    @GET
+    @Path("parkport")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getAllEqus(@DefaultValue("1") @QueryParam("parkport") int parkPortId){
+        String response = MongoDBUtils.findByPortId(DB_NAME, COLLECTION_NAME_PARKPROT,parkPortId);
+        return response;
+    }
+
+    @GET
+    @Path("equipment")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getEquByEquId(@DefaultValue("10001") @QueryParam("equId") int equId){
+        String response = MongoDBUtils.findEquByEquId(DB_NAME, COLLECTION_NAME_EQU,equId);
+        return response;
+    }
+
     private String getEquId(String equInfo) {
-        String[] strings = equInfo.split(",");
-        String equId = strings[0].substring(7,21);
+        int startIndex = equInfo.indexOf(":");
+        int endIndex = equInfo.indexOf(",");
+        String equId = equInfo.substring(startIndex+1,endIndex);
         return equId;
     }
 
@@ -55,22 +73,21 @@ public class EuqEventResource {
         String[] strings = equInfo.split(",");
         String jsonStr = "{"+strings[1];
         BasicDBObject dbObject = (BasicDBObject)JSON.parse(jsonStr);
-        Document document = new Document(dbObject.toMap());
+        BasicDBObject update = new BasicDBObject("$set",dbObject);
+        Document document = new Document(update.toMap());
         return document;
     }
 
     private boolean validateEqu(String equId, String event) {
         boolean status = false;
-        String result = MongoDBUtils.findByField(DB_NAME,COLLECTION_NAME,"equId",equId);
-        Gson json = new Gson();
-        ParkPort parkPort = json.fromJson(result,ParkPort.class);
+        String result = MongoDBUtils.findEquByEquId(DB_NAME, COLLECTION_NAME_EQU,Long.valueOf(equId));
+        Gson gson = new Gson();
+        Equipment equipment = gson.fromJson(result,Equipment.class);
         if(result == null) {
             return status;
         } else {
-            for (Equipment e : parkPort.equ) {
-                if(e.isAlive() && e.getEquStatus() != event) {
-                    status = true;
-                }
+            if(equipment.isAlive() && !equipment.getEquStatus().matches(event)) {
+                status = true;
             }
         }
         return status;

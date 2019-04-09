@@ -20,7 +20,7 @@ public class MongoDBUtils {
     public static MongoDatabase connectToDB(String databaseName){
         MongoClient CLIENT = new MongoClient(HOST, PORT);
         MongoDatabase mongoDB = CLIENT.getDatabase(databaseName);
-        System.out.println("DB:"+databaseName+" connect success!");
+        //System.out.println("DB:"+databaseName+" connect success!");
         return mongoDB;
     }
 
@@ -40,7 +40,7 @@ public class MongoDBUtils {
     public static void update(String databaseName, String collectionName, String fieldName, String value, Document dbObject){
         MongoDatabase mongoDB = connectToDB(databaseName);
         MongoCollection collection = mongoDB.getCollection(collectionName);
-        collection.updateMany(eq(fieldName,value),dbObject);
+        collection.updateMany(eq(fieldName,Long.valueOf(value)),dbObject);
     }
 
     public String findAllEquByParkPort(String databaseName,String collectionName,String parkPortId) {
@@ -57,27 +57,47 @@ public class MongoDBUtils {
         return allRestures.toString();
     }
 
-    public String findEquByEquId(String databaseName,String collectionName,String equipmentId) {
+    public static String findEquByEquId(String databaseName,String collectionName,long equipmentId) {
+        String result = null;
         MongoCollection collection = getCollection(databaseName,collectionName);
         FindIterable<Document> findIterable = collection.find(eq("equId", equipmentId));
         Document document = (Document) findIterable.first();
-        String result = document.toJson();
+        if (document != null){
+            result = document.toJson();
+        }
         return result;
     }
 
     public String findByUserName(String databaseName,String collectionName,String user){
+        String result = null;
         MongoCollection collection = getCollection(databaseName,collectionName);
         FindIterable<Document> findIterable = collection.find(eq("username", user));
         Document document = (Document) findIterable.first();
-        String result = document.toJson();
+        if (document != null){
+            result = document.toJson();
+        }
         return result;
     }
 
     public static String findByField (String databaseName,String collectionName, String fieldName, String key) {
+        String result = null;
         MongoCollection collection = getCollection(databaseName,collectionName);
         FindIterable<Document> findIterable = collection.find(eq(fieldName, key));
         Document document = (Document) findIterable.first();
-        String result = document.toJson();
+        if (document != null){
+            result = document.toJson();
+        }
+        return result;
+    }
+
+    public static String findByPortId (String databaseName,String collectionName, int parkPortId) {
+        String result = null;
+        MongoCollection collection = getCollection(databaseName,collectionName);
+        FindIterable<Document> findIterable = collection.find(eq("parkPortId", parkPortId));
+        Document document = (Document) findIterable.first();
+        if (document != null){
+            result = document.toJson();
+        }
         return result;
     }
 

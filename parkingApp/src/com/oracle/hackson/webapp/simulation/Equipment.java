@@ -1,17 +1,15 @@
 package com.oracle.hackson.webapp.simulation;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Equipment {
-    long equId;
+    int equId;
     boolean alive;
     String equStatus;
+    String equName;
     public Ping ping= new Ping();
     public static int num = 1;
-    public static int unique = 1;
 
     public Equipment() {
 
@@ -23,8 +21,9 @@ public class Equipment {
     }
 
     public void createEqu(int parkId) {
-        long id = createEquId(parkId);
+        int id = createEquId(parkId);
         this.setEquId(id);
+        this.setEquName("PSNo."+ num);
         this.setAlive(true);
         this.setEquStatus("Locked");
     }
@@ -36,11 +35,11 @@ public class Equipment {
         return equStatus;
     }
 
-    private void setEquId(long equId) {
+    private void setEquId(int equId) {
         this.equId = equId;
     }
 
-    private void setEquStatus(String equStatus) {
+    public void setEquStatus(String equStatus) {
         if (isUpdatable()) {
             this.equStatus = equStatus;
         }
@@ -63,19 +62,14 @@ public class Equipment {
         return updateFlag;
     }
 
-    private long createEquId (long parkId) {
-        Date dNow = new Date( );
-        SimpleDateFormat ft =
-                new SimpleDateFormat ("yyyyMMdd");
-        long date = Long.parseLong(ft.format(dNow));
-        long id = parkId * 100000000000L + date * 1000L  + num;
+    private int createEquId (int parkId) {
+        int id = parkId * 1000 + num;
         num++;
-        unique++;
         return id;
     }
 
     private void heartBeat() {
-        if (equId == 120190328006L) {
+        if (equId == 1006) {
             return;
         }
         Timer timer = new Timer();
@@ -88,5 +82,13 @@ public class Equipment {
         long delay = 0L;
         long period = 10000L;
         timer.scheduleAtFixedRate(new myTimerTask(), delay, period);
+    }
+
+    public String getEquName() {
+        return equName;
+    }
+
+    private void setEquName(String equName) {
+        this.equName = equName;
     }
 }

@@ -16,6 +16,12 @@ public class LoginResource {
     private String DB_NAME = "test";
     private String COLLECTION_NAME = "userInfo";
 
+    @GET
+    @Path("hello")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "Hello";
+    }
 
     @POST
     @Path("login")
