@@ -5,25 +5,22 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.*;
+import com.mongodb.BasicDBObject;
 import com.mongodb.util.JSON;
-
-import java.lang.annotation.Documented;
+import org.bson.Document;
 
 
 @Path("hello")
-public class HelloWorldResource {
-
-    public static final String CLICHED_MESSAGE = "Jersey Start:";
-    public String kfkStr;
-    public long kfkOffse;
+public class LoginResource {
 
     private String DB_NAME = "test";
     private String COLLECTION_NAME = "userInfo";
 
     @GET
-    @Produces("text/plain")
-    public String getHello() {
-        return CLICHED_MESSAGE;
+    @Path("hello")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "Hello";
     }
 
     @POST
@@ -37,6 +34,23 @@ public class HelloWorldResource {
             return "login success";
         }else{
             return "login fail";
+        }
+    }
+
+    @POST
+    @Path("signup")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String signUp(String userInfo){
+        Gson json = new Gson();
+        User user = json.fromJson(userInfo, User.class);
+        if(loginValidation(user)){
+            return "Duplicate User";
+        }else{
+            BasicDBObject dbObject = (BasicDBObject)JSON.parse(userInfo);
+            Document document = new Document(dbObject.toMap());
+            MongoDBUtils.insert(DB_NAME,COLLECTION_NAME,document);
+            return "Sign Up Successfully";
         }
     }
 

@@ -1,6 +1,5 @@
 package com.oracle.hackson.webapp.kafka.demo;
 
-import com.oracle.hackson.webapp.simulation.Equipment;
 import com.oracle.hackson.webapp.simulation.ParkPort;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -10,7 +9,6 @@ import java.util.concurrent.ExecutionException;
 
 public class ProducerDemo extends Thread{
     private KafkaProducer<String, ParkPort> producer;
-    //private KafkaProducer<String, String> producer1;
     private final String topic;
     private final Boolean isAsync;
     private ParkPort parkPort;
@@ -21,7 +19,6 @@ public class ProducerDemo extends Thread{
         props.put(ProducerConfig.CLIENT_ID_CONFIG, "DemoProducer");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-       // producer1 = new KafkaProducer<>(props);
         this.topic = topic;
         this.isAsync = isAsync;
     }
@@ -46,13 +43,16 @@ public class ProducerDemo extends Thread{
         while (true) {
             if (isAsync) { // Send asynchronously
                 ProducerRecord<String, ParkPort> record = new ProducerRecord<String, ParkPort>(topic, String.valueOf(parkPort.getParkPortId()), parkPort);
-                for (Equipment e : parkPort.equ) {
                     producer.send(record);
-                }
+                    try {
+                        this.sleep(20000L);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
             } else { // Send synchronously
                 try {
                     ProducerRecord<String, ParkPort> record = new ProducerRecord<String, ParkPort>(topic, String.valueOf(parkPort.getParkPortId()), parkPort);
-                    producer.send(record).get();
+                        producer.send(record).get();
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }

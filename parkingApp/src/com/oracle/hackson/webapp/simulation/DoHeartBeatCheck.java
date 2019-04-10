@@ -2,9 +2,6 @@ package com.oracle.hackson.webapp.simulation;
 
 import java.util.TimerTask;
 
-import com.oracle.hackson.webapp.kafka.demo.KafkaProperties;
-import com.oracle.hackson.webapp.kafka.demo.ProducerDemo;
-import com.oracle.hackson.webapp.kafka.demo.ConsumerDemo;
 
 public class DoHeartBeatCheck extends TimerTask{
     public int TIMEOUT_COUNT = 5;
@@ -14,26 +11,22 @@ public class DoHeartBeatCheck extends TimerTask{
         this.parkPort = p;
     }
     public void run() {
-        ProducerDemo producerThread = new ProducerDemo(KafkaProperties.TOPIC, true, parkPort);
-        ConsumerDemo consumerThread = new ConsumerDemo(com.oracle.hackson.webapp.kafka.demo.KafkaProperties.TOPIC);
         for (Equipment e : parkPort.equ) {
             if (e.ping.reset) {
                 e.ping.reset = false;
                 e.ping.count = 0;
                 System.out.println(e.equId + " is up.");
+                System.out.println(e.equId + "'s status is " + e.equStatus);
             } else if (!e.ping.reset) {
                 if (e.ping.count >= TIMEOUT_COUNT) {
                     e.setAlive(false);// timeout, set disable
-                    System.out.println("Waiting for " + e.equId + " heartbeat.");
+                    System.out.println(e.equId + " is down");
                 } else {
                     ++e.ping.count;
-                    System.out.println(e.equId + " is down");
+                    System.out.println("Waiting for " + e.equId + " heartbeat.");
                 }
             }
         }
-        producerThread.start();
-        consumerThread.start();
-        //producerThread.interrupt();
-        //consumerThread.interrupt();
+
     }
 }

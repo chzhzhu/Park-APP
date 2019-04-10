@@ -1,13 +1,20 @@
 package com.oracle.hackson.webapp.kafka.demo;
 
+
+import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
+import com.mongodb.util.JSON;
+import com.oracle.hackson.webapp.java.main.MongoDBUtils;
+import com.oracle.hackson.webapp.simulation.Equipment;
 import com.oracle.hackson.webapp.simulation.ParkPort;
 import com.oracle.hackson.webapp.util.ShutdownableThread;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import java.util.Collections;
-import java.util.Properties;
+import org.bson.Document;
+
+import java.util.*;
 
 public class ConsumerDemo extends ShutdownableThread{
     private KafkaConsumer<String, ParkPort> consumer;
@@ -33,11 +40,40 @@ public class ConsumerDemo extends ShutdownableThread{
     public void doWork() {
         consumer.subscribe(Collections.singletonList(this.topic));
         ConsumerRecords<String, ParkPort> records = consumer.poll(1000);
+        Gson gson = new Gson();
         for (ConsumerRecord<String, ParkPort> record : records) {
-            System.out.println("Received message: " + record.value().getEquId() + "'s alive statue is " + record.value().isAlive() + ", at offset " + record.offset());
+            String parkPortStr = gson.toJson(record.value());
+            BasicDBObject dbObjectPark = (BasicDBObject)JSON.parse(parkPortStr);
+            Document documentPark = new Document(dbObjectPark.toMap());
+            String parkPortQuery = MongoDBUtils.findByPortId(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,Integer.valueOf(record.key()));
+            if (parkPortQuery == null){
+                MongoDBUtils.insert(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,documentPark);
+            } else {
+                String equJson = gson.toJson(record.value());
+                BasicDBObject parkDbObject = (BasicDBObject)JSON.parse(equJson);
+                BasicDBObject update = new BasicDBObject("$set",parkDbObject);
+                Document parkDocument = new Document(update.toMap());
+                MongoDBUtils.update(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,"parkPortId",record.key(),parkDocument);
+            }
+            for (Equipment e : record.value().equ) {
+                System.out.println("Received message: " + e.getEquId() + "'s alive statue is " + e.isAlive() + ", at offset " + record.offset());
+                String equQuery = MongoDBUtils.findEquByEquId(KafkaProperties.DATABASE,KafkaProperties.EQUIPMENT_COL,e.getEquId());
+                if(equQuery == null) {
+                    String equStr = gson.toJson(e);
+                    BasicDBObject dbObjectEqu = (BasicDBObject)JSON.parse(equStr);
+                    Document equDocument= new Document(dbObjectEqu.toMap());
+                    MongoDBUtils.insert(KafkaProperties.DATABASE, KafkaProperties.EQUIPMENT_COL, equDocument);
+                } else{
+                    String equStr = gson.toJson(e);
+                    BasicDBObject dbObjectEqu = (BasicDBObject)JSON.parse(equStr);
+                    BasicDBObject update = new BasicDBObject("$set",dbObjectEqu);
+                    Document equDocument = new Document(update.toMap());
+                    MongoDBUtils.update(KafkaProperties.DATABASE,KafkaProperties.EQUIPMENT_COL,"equId",String.valueOf(e.getEquId()),equDocument);
+                }
+            }
+
         }
     }
-
 
 }
 

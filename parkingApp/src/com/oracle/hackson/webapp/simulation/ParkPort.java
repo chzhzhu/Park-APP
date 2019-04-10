@@ -2,7 +2,7 @@ package com.oracle.hackson.webapp.simulation;
 
 
 
-public class ParkPort extends Equipment {
+public class ParkPort {
 
     double longitude;
     double latitude;
@@ -17,11 +17,11 @@ public class ParkPort extends Equipment {
 
     public ParkPort(double lon, double lat, int num) {
         resetId();
-        resetNum();
         this.setParkPortId(id);
         this.setLongitude(lon);
         this.setLatitude(lat);
         this.setEquNum(num);
+        Equipment.num = 1;
         equ = new Equipment[num];
         for (int i = 0; i <num ; i++) {
             equ[i] =new Equipment(id);
@@ -37,11 +37,11 @@ public class ParkPort extends Equipment {
         return longitude;
     }
 
-    private void setLatitude(double latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    private void setLongitude(double longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
@@ -73,11 +73,29 @@ public class ParkPort extends Equipment {
         this.parkPortId = parkPortId;
     }
 
-    private void resetNum() {
-        this.num = 1;
-    }
-
     public void resetId() {
         this.id = 1;
+    }
+
+    public Equipment[] getEqu() {
+        return equ;
+    }
+
+    public Equipment getEquByEquId(int equId){
+        Equipment equipment = null;
+        for(Equipment e : this.getEqu()){
+            if (e.getEquId() == equId)
+                equipment = e;
+        }
+        return equipment;
+    }
+
+    public Equipment getEquByEquName(String equName){
+        Equipment equipment = null;
+        for(Equipment e : this.getEqu()){
+            if (e.getEquName() == equName)
+                equipment = e;
+        }
+        return equipment;
     }
 }
