@@ -1,0 +1,78 @@
+[
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-xxxhdpi_screen.9.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/drawable-land-xxxhdpi/screen.9.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/mipmap-hdpi_icon.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/mipmap-hdpi/icon.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-xxhdpi_screen.9.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/drawable-land-xxhdpi/screen.9.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/xml_config.xml.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/xml/config.xml"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-xhdpi_screen.9.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/drawable-land-xhdpi/screen.9.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_icon.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/mipmap-xxhdpi/icon.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-hdpi_screen.9.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/drawable-port-hdpi/screen.9.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-hdpi_screen.9.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/drawable-land-hdpi/screen.9.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-mdpi_screen.9.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/drawable-land-mdpi/screen.9.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-ldpi_screen.9.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/drawable-port-ldpi/screen.9.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi_icon.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/mipmap-xhdpi/icon.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-xxhdpi_screen.9.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/drawable-port-xxhdpi/screen.9.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/mipmap-mdpi_icon.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/mipmap-mdpi/icon.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-mdpi_screen.9.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/drawable-port-mdpi/screen.9.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-xhdpi_screen.9.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/drawable-port-xhdpi/screen.9.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-ldpi_screen.9.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/drawable-land-ldpi/screen.9.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-xxxhdpi_screen.9.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/drawable-port-xxxhdpi/screen.9.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_icon.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/mipmap-xxxhdpi/icon.png"
+    },
+    {
+        "merged": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/build/intermediates/res/merged/debug/mipmap-ldpi_icon.png.flat",
+        "source": "/Users/mmt/Documents/MySampleApp/hybrid/platforms/android/app/src/main/res/mipmap-ldpi/icon.png"
+    }
+]
