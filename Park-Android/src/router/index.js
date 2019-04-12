@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import A from '@/components/A'
+import MMT from '@/components/mmt'
+import PayDetails from '@/components/PayDetails'
 import B from '@/components/B'
 import Details from '@/components/Details'
 
@@ -15,16 +16,14 @@ export default new Router({
       component: HelloWorld
     },
     {
-      path: '/A',
-      component: A
+      path: '/mmt',
+      name: 'MMT',
+      component: MMT
     },
     {
-      path: '/B',
-      component: B
-    },
-    {
-      path: '/Details',
-      component: Details
+      path: '/PayDetails',
+      name: 'PayDetails',
+      component: PayDetails
     }
   ]
 })

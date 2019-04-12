@@ -1,20 +1,8 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <transition :name="$store.state.states">
     <router-view/>
     </transition>
-    <div>Index Page</div>
-  <tabbar class="vux-demo-tabbar" icon-class="vux-center" slot="bottom">
-      <tabbar-item selected link="/" @on-item-click="clickLink">
-        <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">&#xe637;</span>
-        <span slot="label">Home</span>
-      </tabbar-item>
-      <tabbar-item selected link="/Details"  @on-item-click="clickLink" badge="9">
-         <span class="demo-icon-22" slot="icon">&#xe633;</span>
-         <span slot="label">Demos</span>
-      </tabbar-item>
-  </tabbar>
   </div>
 </template>
 
@@ -69,7 +57,7 @@ body,
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 .turn-on-enter {
   transform: translate3d(100%, 0, 0);

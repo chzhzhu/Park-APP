@@ -1,9 +1,12 @@
 <template>
-  <div class="hello">
+  <div class="mycontainer">
+    <Header></Header>
+    <Bottom></Bottom>
   </div>
 </template>
 <script>
-import subs from './sub'
+import Header from './Header'
+import Bottom from './Bottom'
 export default {
   data1 () {
     return {
@@ -31,7 +34,8 @@ export default {
     }
   },
   components: {
-    subs
+    Header,
+    Bottom
   },
   methods: {
     change () {
@@ -67,6 +71,12 @@ li {
 a {
   color: #42b983;
 }
+.mycontainer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
 
 /* The container of BaiduMap must be set width & height. */
 .map {

@@ -1,7 +1,7 @@
 <template>
     <div class="D">
         <group label-width="4.5em" label-margin-right="2em" label-align="right">
-                <cell is-link title="A" link="/A" @click.native="clickLink"></cell>
+                <cell is-link title="PayDetails" link="/PayDetails" @click.native="clickLink"></cell>
                 <cell is-link title="B" link="/B" @click.native="clickLink"></cell>
         </group>
           <tabbar class="vux-demo-tabbar" icon-class="vux-center" slot="bottom">
@@ -9,7 +9,7 @@
                 <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">&#xe637;</span>
                 <span slot="label">Home</span>
               </tabbar-item>
-              <tabbar-item selected link="/B"  @on-item-click="clickLink" badge="9">
+              <tabbar-item selected link="/Details"  @on-item-click="clickLink">
                  <span class="demo-icon-22" slot="icon">&#xe633;</span>
                  <span slot="label">Demos</span>
               </tabbar-item>

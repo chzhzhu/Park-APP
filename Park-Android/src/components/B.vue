@@ -1,18 +1,18 @@
 <template>
     <div class="B">
-        <common title="b"></common>
+        <Header title="b"></Header>
     </div>
 </template>
 
 <script>
-import common from './common'
+import Header from './Header'
 export default {
   data () {
     return {
     }
   },
   components: {
-    common
+    Header
   }
 }
 </script>
