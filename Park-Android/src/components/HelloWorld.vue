@@ -77,7 +77,6 @@ a {
   height: 100%;
 }
 
-
 /* The container of BaiduMap must be set width & height. */
 .map {
   width: 100%;
