@@ -41,7 +41,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
+@import '~vux/src/styles/close.less';
 * {
   margin: 0;
   padding: 0;
@@ -52,12 +53,15 @@ export default {
 html,
 body,
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  /*font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: center;*/
   color: #2c3e50;
-  margin-top: 0px;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  background-color: #F0F0F0;
 }
 .turn-on-enter {
   transform: translate3d(100%, 0, 0);

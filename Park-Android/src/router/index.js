@@ -1,27 +1,26 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import MMT from '@/components/mmt'
-import PayDetails from '@/components/PayDetails'
-import B from '@/components/B'
-import Details from '@/components/Details'
 import Rent from '@/components/Rent'
 import QRCodeScanner from '@/components/QRCodeScanner'
 import Scanner from '@/components/Scanner'
+import Navigate from '@/components/Navigate/Navigate'
+import Me from '@/components/Me/Me'
+import PayDetails from '@/components/Me/PayDetails'
+import ResetPassword from '@/components/Me/ResetPassword'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/Navigate',
+      name: 'Navigate',
+      component: Navigate
     },
     {
-      path: '/mmt',
-      name: 'MMT',
-      component: MMT
+      path: '/Me',
+      name: 'Me',
+      component: Me
     },
     {
       path: '/PayDetails',
@@ -42,6 +41,11 @@ export default new Router({
       path: '/Scanner',
       name: 'Scanner',
       component: Scanner
+    },
+    {
+      path: '/ResetPassword',
+      name: 'ResetPassword',
+      component: ResetPassword
     }
   ]
 })

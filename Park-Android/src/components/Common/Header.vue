@@ -1,15 +1,11 @@
 <template>
-    <div class="header">
-        <div class="left" @click="back">
-            back
-        </div>
-        <div class="center">
-            {{title}}
-        </div>
+    <div>
+        <x-header :left-options="{backText:'Back'}">{{title}}</x-header>
     </div>
 </template>
 
 <script>
+import { XHeader } from 'vux'
 export default {
   data () {
     return {}
@@ -20,17 +16,17 @@ export default {
       this.$store.commit('setTransition', 'turn-off')
       this.$router.back(-1)
     }
+  },
+  components: {
+    XHeader
   }
 }
 </script>
 
 <style scoped>
-.header {
-  position: fixed;
-  width: 100%;
-  height: 40px;
-  line-height: 40px;
-  background-color: red;
+.out_container{
+  min-width: 100%;
+  min-height: 100%;
 }
 .clearfix {
   overflow: auto;
@@ -44,4 +40,5 @@ export default {
   left: 50%;
   position: fixed;
 }
+
 </style>
