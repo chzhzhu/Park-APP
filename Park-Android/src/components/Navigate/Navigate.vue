@@ -1,12 +1,13 @@
 <template>
-  <div class="mycontainer">
+  <div>
     <Header></Header>
+    <span>here is map</span>
     <Bottom></Bottom>
   </div>
 </template>
 <script>
-import Header from './Header'
-import Bottom from './Bottom'
+import Header from '../Common/Header'
+import Bottom from '../Common/Bottom'
 export default {
   data1 () {
     return {
@@ -22,7 +23,7 @@ export default {
       this.zoom = 12
     }
   },
-  name: 'HelloWorld',
+  name: 'Navigate',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -71,13 +72,6 @@ li {
 a {
   color: #42b983;
 }
-.mycontainer {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-}
-
-
 /* The container of BaiduMap must be set width & height. */
 .map {
   width: 100%;
