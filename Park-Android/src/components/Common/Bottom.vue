@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <tabbar>
+  <div id="app">
+    <tabbar id="footer">
         <tabbar-item selected link="/Navigate" style="text-decoration: none;">
           <img slot="icon" src="../../assets/icon/bottom_map.png">
           <span slot="label">Map</span>
@@ -48,10 +48,7 @@ export default {
 </script>
 
 <style>
-.footer{
-height: 100%;
-width: 100%;
-position: fixed;
-bottom: 0;
+#footer{
+  text-align: bottom;
 }
 </style>

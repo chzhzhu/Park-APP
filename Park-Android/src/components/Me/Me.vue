@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <Header></Header>
       <div>
         <panel :list="list1" :type="type1" style="text-decoration: none;"></panel>
@@ -21,21 +21,21 @@ export default {
       type2: '3',
       type3: '3',
       list1: [{
-        src: '../../assets/icon/me_avatar.png',
-        fallbackSrc: '../../assets/icon/me_avatar.png',
+        src: require('@/assets/icon/me_avatar.png'),
+        fallbackSrc: '',
         title: 'UserName',
         desc: '123'
         // url: '/component/cell'
       }],
       list2: [{
-        src: '../../assets/icon/me_avatar.png',
-        fallbackSrc: '../../assets/icon/me_avatar.png',
+        src: require('@/assets/icon/payDetails_money.png'),
+        fallbackSrc: '',
         title: 'Pay',
         url: '/PayDetails'
       }],
       list3: [{
-        src: '../../assets/icon/me_avatar.png',
-        fallbackSrc: '../../assets/icon/me_avatar.png',
+        src: require('@/assets/icon/me_resetPassword.png'),
+        fallbackSrc: '',
         title: 'Reset Password',
         url: '/ResetPassword'
       }]
