@@ -1,12 +1,12 @@
 <template>
     <div>
       <Header></Header>
-        <div style="margin-top: 15px;">
-          <span id="hint">You need to login again after you reset your password.</span>
-            <x-input class="resetInput" title="UserName" placeholder="123" :readonly="true" style="margin-top: 15px;"></x-input>
-            <x-input class="resetInput" title="Old Password" type="password" placeholder="please input your old password"></x-input>
-            <x-input class="resetInput" title="New Password" type="password" placeholder="please input your new password"></x-input>
-            <x-input class="resetInput" title="Confirm Password" type="password" placeholder="please input your new password again"></x-input>
+        <div style="margin-top: 15px; text-align: left;">
+          <div id="hint"><span>You need to login again after you reset your password.</span></div>
+            <x-input class="resetInput" title="UserName" :readonly="true" style="margin-top: 15px;" value="123"></x-input>
+            <x-input class="resetInput" title="Old Password" type="password" placeholder="old password" :min="2" :max="18"></x-input>
+            <x-input class="resetInput" title="New Password" type="password" placeholder="new password" :min="2" :max="18"></x-input>
+            <x-input class="resetInput" title="Confirm Password" type="password" placeholder="new password" :min="2" :max="18"></x-input>
             <x-button plain style="margin-top: 50px;width: 300px;" @click.native="onClick">Commit</x-button>
             <div v-transfer-dom>
               <confirm
@@ -28,7 +28,7 @@
 <script>
 import Header from '../Common/Header'
 import Bottom from '../Common/Bottom'
-import { XInput, XButton, Confirm, TransferDomDirective as TransferDom, XSwitch } from 'vux'
+import { XInput, XButton, Confirm, TransferDomDirective as TransferDom, XSwitch, Toast } from 'vux'
 
 export default {
   data () {
@@ -45,7 +45,8 @@ export default {
     Bottom,
     XInput,
     XButton,
-    Confirm
+    Confirm,
+    Toast
   },
   methods: {
     onHide () {
@@ -75,9 +76,11 @@ export default {
 <style scoped>
 #hint {
   margin-top: 20px;
-  margin-left: 7px;
+  margin-left: 15px;
+  font-size: 18px;
 }
 .resetInput {
   background-color: #FFFFFF;
+  font-size: 16px;
 }
 </style>

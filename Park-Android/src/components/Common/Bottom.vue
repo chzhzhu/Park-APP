@@ -1,11 +1,11 @@
 <template>
   <div>
     <tabbar>
-        <tabbar-item selected link="/Navigate" style="text-decoration: none;">
+        <tabbar-item selected link="/Map" style="text-decoration: none;">
           <img slot="icon" src="../../assets/icon/bottom_map.png">
           <span slot="label">Map</span>
         </tabbar-item>
-        <tabbar-item selected link="/Navigate" style="text-decoration: none;">
+        <tabbar-item selected link="/Rent" style="text-decoration: none;">
           <img slot="icon" src="../../assets/icon/bottom_rentInfo.png">
           <span slot="label">Rent Info</span>
         </tabbar-item>

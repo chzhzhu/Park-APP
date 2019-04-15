@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div id="app">
     <Header></Header>
       <div>
-        <panel :list="list1" :type="type1" style="text-decoration: none;"></panel>
-        <panel :list="list2" :type="type2" style="text-decoration: none;margin-top: 10px"></panel>
-        <panel :list="list3" :type="type3"></panel>
+        <panel :list="list1" :type="type1" style="text-decoration: none!important; text-align: left"></panel>
+        <panel :list="list2" :type="type2" style="text-decoration: none!important; margin-top: 10px; text-align: left"></panel>
+        <panel :list="list3" :type="type3" style="text-decoration: none!important; text-align: left"></panel>
       </div>
     <Bottom></Bottom>
   </div>
@@ -13,7 +13,6 @@
 import Header from '../Common/Header'
 import Bottom from '../Common/Bottom'
 import { Panel } from 'vux'
-
 export default {
   data () {
     return {
@@ -21,21 +20,20 @@ export default {
       type2: '3',
       type3: '3',
       list1: [{
-        src: '../../assets/icon/me_avatar.png',
-        fallbackSrc: '../../assets/icon/me_avatar.png',
+        src: require('@/assets/icon/me_avatar.png'),
+        fallbackSrc: '',
         title: 'UserName',
         desc: '123'
-        // url: '/component/cell'
       }],
       list2: [{
-        src: '../../assets/icon/me_avatar.png',
-        fallbackSrc: '../../assets/icon/me_avatar.png',
+        src: require('@/assets/icon/payDetails_money.png'),
+        fallbackSrc: '',
         title: 'Pay',
         url: '/PayDetails'
       }],
       list3: [{
-        src: '../../assets/icon/me_avatar.png',
-        fallbackSrc: '../../assets/icon/me_avatar.png',
+        src: require('@/assets/icon/me_resetPassword.png'),
+        fallbackSrc: '',
         title: 'Reset Password',
         url: '/ResetPassword'
       }]
@@ -64,7 +62,7 @@ li {
 }
 a {
   color: #42b983;
-  text-decoration: none;
+  text-decoration: none!important;
 }
 .out_container{
   min-width: 100%;

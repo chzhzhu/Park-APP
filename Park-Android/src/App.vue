@@ -58,9 +58,9 @@ body,
   -moz-osx-font-smoothing: grayscale;
   text-align: center;*/
   color: #2c3e50;
+  margin-top: 0px;
   width: 100%;
   height: 100%;
-  text-decoration: none;
   background-color: #F0F0F0;
 }
 .turn-on-enter {
@@ -71,7 +71,7 @@ body,
 }
 .turn-on-enter-active,
 .turn-on-leave-active {
-  transition: transform 0.4s ease;
+  transition: transform 0s ease;
 }
 .turn-off-enter {
   /* transform: translate3d(-20%, 0, 0); */
@@ -81,7 +81,7 @@ body,
 }
 .turn-off-enter-active,
 .turn-off-leave-active {
-  transition: transform 0.4s ease;
+  transition: transform 0s ease;
 }
 .turn-off-leave-active {
   z-index: 2;

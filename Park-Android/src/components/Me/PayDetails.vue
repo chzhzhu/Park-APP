@@ -5,7 +5,7 @@
             <img src="../../assets/icon/payDetails_money.png" id="money">
             <span id="myPurse">My Purse</span>
             <span id="account">1000.00</span>
-            <x-button plain style="margin-top: 50px;width: 300px;" @click.native="onClick">charge</x-button>
+            <x-button plain style="margin-top: 50px;width: 300px;" @click.native="onClickCharge">charge</x-button>
         </div>
         <Bottom></Bottom>
         <div v-transfer-dom>
@@ -20,12 +20,12 @@
                   <br>
                   <br>
                   <br>
-                  <span style="font-size: 18px;margin-left: 15px;">Please enter the recharge amount:</span>
+                  <div style="margin-left: 15px;"><span style="font-size: 18px;">Please enter the recharge amount:</span></div>
                   <group style="margin:8px 18px;">
-                    <x-input type="number" required placeholder="¥ 0.00  CNY" style="padding: 10px 5px;font-size: 20px"></x-input>
+                    <x-input v-model="inputValue" type="number" placeholder="¥ 0.00  CNY" style="padding: 10px 5px;font-size: 20px;" :show-clear="true"  @on-click-clear-icon="onClickClearIcon" @on-focus="onFocus"></x-input>
                   </group>
                   <br>
-                  <x-button plain style="margin-top: 10px;margin-bottom: 15px;width: 90%" @click.native="onClick">Commit</x-button>
+                  <x-button plain style="margin-top: 10px;margin-bottom: 15px;width: 90%" @click.native="onClickCommit">Commit</x-button>
                 </div>
               </x-dialog>
             </div>
@@ -36,14 +36,14 @@
 import Header from '../Common/Header'
 import Bottom from '../Common/Bottom'
 import { XButton, XDialog, Icon, XInput, Group, TransferDomDirective as TransferDom } from 'vux'
-
 export default {
   directives: {
     TransferDom
   },
   data () {
     return {
-      show: false
+      show: false,
+      inputValue: ''
     }
   },
   components: {
@@ -56,15 +56,18 @@ export default {
     Group
   },
   methods: {
-    onConfirm5 () {
-      // this.$refs.confirm5.setInputValue('')
-    },
-    onShow5 () {
-      // this.$refs.confirm5.setInputValue('')
-    },
-    onClick () {
+    onClickCharge () {
       const self = this
       self.show = true
+    },
+    onClickClearIcon () {
+      console.log('click clear icon')
+      self.inputValue = ''
+    },
+    onClickCommit () {
+    },
+    onFocus () {
+      console.log('on Focus')
     }
   }
 }
@@ -102,7 +105,7 @@ export default {
   position: absolute;
   top: 10px;
   left: 15px;
-  font-size: 32px;
+  font-size: 30px;
   font-weight: bold;
 }
 </style>

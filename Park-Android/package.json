@@ -14,11 +14,14 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "jquery": "^3.4.0",
     "vue": "^2.5.2",
     "vue-baidu-map": "^0.21.19",
+    "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
     "vuex": "^3.1.0",
-    "vux": "^2.9.3"
+    "vux": "^2.9.3",
+    "weixin-js-sdk": "^1.4.0-test"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -89,7 +92,7 @@
     "vux-loader": "^1.2.9",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.9.1",
+    "webpack-dev-server": "^2.11.5",
     "webpack-merge": "^4.1.0"
   },
   "engines": {
