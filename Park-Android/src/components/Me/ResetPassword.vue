@@ -29,6 +29,7 @@
 import Header from '../Common/Header'
 import Bottom from '../Common/Bottom'
 import { XInput, XButton, Confirm, TransferDomDirective as TransferDom, XSwitch, Toast } from 'vux'
+
 export default {
   data () {
     return {

@@ -53,5 +53,4 @@ height: 100%;
 width: 100%;
 position: fixed;
 bottom: 0;
-}
 </style>

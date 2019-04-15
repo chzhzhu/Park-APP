@@ -1,48 +1,24 @@
 <template>
     <div>
-        <x-header :left-options="{backText:'Back'}" :right-options="{showMore: true}"
-        @on-click-more="popupOpen">{{title}}</x-header>
-        <div v-transfer-dom>
-              <popup v-model="show1">
-                <group gutter="0">
-                  <cell title="Logout" @click.native="logout"></cell>
-                  <cell title="Feedback" @click.native="feedback"></cell>
-                </group>
-              </popup>
-        </div>
+        <x-header :left-options="{backText:'Back'}">{{title}}</x-header>
     </div>
 </template>
 
 <script>
-import { XHeader,Cell,Popup,Group } from 'vux'
+import { XHeader } from 'vux'
 export default {
   data () {
-    return {
-        showMenus: false,
-        show1: false
-    }
+    return {}
   },
   props: ['title'],
   methods: {
     back () {
       this.$store.commit('setTransition', 'turn-off')
       this.$router.back(-1)
-    },
-    logout() {
-      this.$router.push({path: '/Signin'})
-    },
-    feedback() {
-      this.$router.push({path: '/Signin'})
-    },
-    popupOpen() {
-      this.show1 = true
     }
   },
   components: {
-    XHeader,
-    Cell,
-    Popup,
-    Group
+    XHeader
   }
 }
 </script>
