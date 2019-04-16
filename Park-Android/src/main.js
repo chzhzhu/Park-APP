@@ -5,9 +5,8 @@ import App from './App'
 import router from './router'
 import BaiduMap from 'vue-baidu-map'
 import vuex from 'vuex'
-import  VueResource  from 'vue-resource'
 
-Vue.use(VueResource)
+//Vue.use(VueResource)
 Vue.use(vuex)
 Vue.use(BaiduMap, {
   /* Visit http://lbsyun.baidu.com/apiconsole/key for details about app key. */

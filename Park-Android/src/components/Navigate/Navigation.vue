@@ -1,6 +1,18 @@
 <template>
     <div>
-    <baidu-map class="map" :center="center" :zoom="zoom" @ready="handler">
+      <div id="tabContainer">
+        <!--<tab bar-position="top">
+            <tab-item selected @on-item-click="changePolicyDis">Distance First</tab-item>
+            <tab-item @on-item-click="changePolicyTime">Time First</tab-item>
+            <tab-item @on-item-click="changePolicyAvoH">No Highways</tab-item>
+         </tab>-->
+        <button-tab class="top">
+          <button-tab-item class="tab" @on-item-click="changePolicyDis">Distance First</button-tab-item>
+          <button-tab-item class="tab" :selected="true" @on-item-click="changePolicyTime">Time First</button-tab-item>
+          <button-tab-item class="tab" @on-item-click="changePolicyAvoH">No Highways</button-tab-item>
+        </button-tab>
+      </div>
+      <baidu-map class="map" :center="center" :zoom="zoom" @ready="handler">
         <bm-view class="view">
         </bm-view>
         <bm-driving
@@ -10,22 +22,18 @@
           :policy="driverpolicy"
           :panel="false">
         </bm-driving>
-    </baidu-map>
-    <div class="button" @click="rent">
-      <img src="../../assets/icon/go.png" class ="img"></img>
-    </div>
-    <div class="top">
-    <tab bar-position="top">
-          <tab-item selected @on-item-click="changePolicyDis">Distance First</tab-item>
-          <tab-item @on-item-click="changePolicyTime">Time First</tab-item>
-          <tab-item @on-item-click="changePolicyAvoH">No Highways</tab-item>
-       </tab>
-    </div>
+      </baidu-map>
+      <div @click="rent">
+        <img src="../../assets/icon/navigation_go.png" class ="image"></img>
+      </div>
+    
+      <Bottom></Bottom>
     </div>
 </template>
 
 <script>
-import { Tab, TabItem, XButton } from 'vux'
+import { Tab, TabItem, XButton, ButtonTab, ButtonTabItem } from 'vux'
+import Bottom from '../Common/Bottom'
 export default {
   data () {
     return {
@@ -39,7 +47,10 @@ export default {
   components: {
     Tab,
     TabItem,
-    XButton
+    XButton,
+    ButtonTabItem,
+    ButtonTab,
+    Bottom
   },
   methods: {
     handler({ BMap, map }) {
@@ -71,15 +82,25 @@ export default {
 
 <style scoped>
 .view {
-    position: fixed;
-    width: 100%;
-    height: 96%;
+  height: 100%;
+  width: 100%;
+  bottom: 50px;
 }
+.map {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}/*
 .map {
     position: fixed;
     width: 100%;
     height: 96%;
     margin-top:44px;
+}
+.view {
+    position: fixed;
+    width: 100%;
+    height: 96%;
 }
 .top {
   width: 100%;
@@ -87,17 +108,30 @@ export default {
   background-color: white;
   position: fixed;
   top: 0px;
-}
-.button {
+}*/
+#tabContainer {
+  width: 100%;
+  height: 45px;
+  z-index: 1000;
+  margin-top: 30px;
   position: absolute;
-  width: 40px;
-  height: 40px;
-  bottom: 80px;
-  border-radius: 20px;
-  right:20px;
 }
-.img {
- width: 40px;
- height: 40px;
+.top {
+  margin: 0 auto;
+  width: 85%;
+}
+.tab {
+  text-decoration: none;
+  border: 1px solid #04BE02;
+  background-color: #F0F0F0;
+  color: #13227a;
+  font-size: 15px;
+}
+.image {
+ width: 60px;
+ height: 60px;
+ bottom: 90px;
+ right: 25px;
+ position: absolute;
 }
 </style>

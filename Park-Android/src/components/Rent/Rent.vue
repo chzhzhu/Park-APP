@@ -25,18 +25,18 @@
     </div>
     <div v-else>
       <div>
-        <br>
-        <br>
+        <div style="text-align: center;margin-top: 70px;"><img src="../../assets/icon/rentInfo_hint.png" style="width: 60px;height: 60px;"></div>
+         <br><br>
         <p class="noneMsg">
-          You don't have any Parking Info here.
+          You don't have any parking info here.
         </p>
         <br>
         <p class="noneMsg">
-          Please go renting Firstly!
+          Please rent a parking space first.
         </p>
         <br>
       </div>
-      <x-button class="btn1" @click.native="goRent">Rent</x-button>
+      <x-button class="btn1" plain @click.native="goRent">Scan to rent</x-button>
     </div>
     <Bottom></Bottom>
   </div>
@@ -110,7 +110,9 @@ export default {
     -webkit-align-content: initial;
   }
   .btn1 {
-    width: 30%;
+    width: 85%;
+    margin-top: 30px;
+    text-align: center;
   }
   .btn2 {
     width: 50%;
@@ -118,5 +120,6 @@ export default {
   .noneMsg {
     text-align: center;
     color: red;
+    font-size: 20px;
   }
 </style>

@@ -14,12 +14,32 @@
             <bm-marker :position=points[7] :dragging="true" @click="infoWindowOpen(7)"></bm-marker>
             <bm-marker :position=points[8] :dragging="true" @click="infoWindowOpen(8)"></bm-marker>
             <bm-marker :position=points[9] :dragging="true" @click="infoWindowOpen(9)"></bm-marker>
+            <!--
             <x-dialog v-model="show" class="dialog-demo">
                <div class="img-box">{{parkinfo}}</div>
                <div @click="navigation()">
                 <span class="vux-close">Let's go!</span>
                </div>
-               </x-dialog>
+               </x-dialog>-->
+            <group>
+              <x-switch title="transparent background" v-model="show"></x-switch>
+            </group>
+            
+            <div v-transfer-dom>
+              <popup v-model="show" height="280px" is-transparent>
+                <div style="width: 95%;background-color:#fff;height:250px;margin:0 auto;border-radius:5px;padding-top:10px;">
+                  <div style="text-align: center;"><span style="font-size: 20px;">{{parkinfo}}</span></div>
+                 <group>
+                  <cell title="Total parking spaces:" value="99"></cell>
+                  <cell title="Avaliable parking spaves:" value="44"></cell>
+                  <cell title="Pay:" value="2 CNY/H"></cell>
+                 </group>
+                 <div style="padding:20px 15px;">
+                  <x-button style="background-color: #FF7F00;color: #FFFFFF;" @click.native="navigation()">Let's go</x-button>
+                 </div>
+                </div>
+              </popup>
+            </div>
         </baidu-map>
         <Bottom></Bottom>
     </div>
@@ -27,8 +47,11 @@
 <script>
 import Header from '../Common/Header'
 import Bottom from '../Common/Bottom'
-import { XDialog } from 'vux'
+import { XDialog, Group, XButton, Popup, Cell, TransferDomDirective as TransferDom } from 'vux'
 export default {
+    directives: {
+        TransferDom
+      },
     data() {
         return {
             center: { lng: 0, lat: 0 },
@@ -48,7 +71,11 @@ export default {
     components: {
         Header,
         Bottom,
-        XDialog
+        XDialog,
+        Group,
+        XButton,
+        Popup,
+        Cell
     },
     methods: {
         change() {
@@ -62,7 +89,7 @@ export default {
         },
         infoWindowOpen(n) {
             this.show = true
-            this.parkinfo = n + '停车场'
+            this.parkinfo = 'Parking Lot ' + n
             this.n = n
         },
         handler({ BMap, map }) {
@@ -126,7 +153,8 @@ a {
 /* The container of BaiduMap must be set width & height. */
 .map {
     position: fixed;
+    bottom: 50px;
+    top: 0px;
     width: 100%;
-    height: 91.5%;
 }
 </style>
