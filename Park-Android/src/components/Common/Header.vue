@@ -1,7 +1,7 @@
 <template>
     <div>
         <x-header :left-options="{backText:'Back'}" :right-options="{showMore: true}"
-        @on-click-more="popupOpen">{{title}}</x-header>
+        @on-click-more="popupOpen" style="background-color: #13227a;">{{title}}</x-header>
         <div v-transfer-dom>
               <popup v-model="show1">
                 <group gutter="0">
@@ -14,8 +14,11 @@
 </template>
 
 <script>
-import { XHeader,Cell,Popup,Group } from 'vux'
+import { XHeader,Cell,Popup,Group, TransferDomDirective as TransferDom } from 'vux'
 export default {
+  directives: {
+    TransferDom
+  },
   data () {
     return {
         showMenus: false,

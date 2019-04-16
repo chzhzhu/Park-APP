@@ -2,9 +2,9 @@
   <div id="app">
     <Header></Header>
       <div>
-        <panel :list="list1" :type="type1" style="text-decoration: none!important; text-align: left"></panel>
-        <panel :list="list2" :type="type2" style="text-decoration: none!important; margin-top: 10px; text-align: left"></panel>
-        <panel :list="list3" :type="type3" style="text-decoration: none!important; text-align: left"></panel>
+        <panel :list="list1" :type="type1" style="text-decoration: none; text-align: left;height: 100px;"></panel>
+        <panel :list="list2" :type="type2" style="text-decoration: none; margin-top: 20px; text-align: left"></panel>
+        <panel :list="list3" :type="type3" style="text-decoration: none; text-align: left;margin-top: 5px;"></panel>
       </div>
     <Bottom></Bottom>
   </div>
@@ -22,11 +22,11 @@ export default {
       list1: [{
         src: require('@/assets/icon/me_avatar.png'),
         fallbackSrc: '',
-        title: 'UserName',
+        title: 'User Name',
         desc: '123'
       }],
       list2: [{
-        src: require('@/assets/icon/payDetails_money.png'),
+        src: require('@/assets/icon/me_payDetails.png'),
         fallbackSrc: '',
         title: 'Pay',
         url: '/PayDetails'
@@ -48,7 +48,7 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2, h4 {
+h1, h2, h4{
   font-weight: normal;
   text-decoration: none;
 }
@@ -59,13 +59,5 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
-}
-a {
-  color: #42b983;
-  text-decoration: none!important;
-}
-.out_container{
-  min-width: 100%;
-  min-height: 100%;
 }
 </style>

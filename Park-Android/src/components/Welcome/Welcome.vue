@@ -1,15 +1,12 @@
 <template>
  <div style="text-align: center;">
-    <img src="../../assets/icon/car.png" class="img">
+    <img src="../../assets/icon/welcome_parking.png" class="image">
     <br>
     <br>
-    <b class="title">Welcome to Parking APP</b>
+    <b class="title">Parking APP</b>
+      <x-button @click.native="signup" style="border-radius:5px; width: 85%;margin-top: 90px;font-size: 23px;">Create Account</x-button>
       <br>
-      <br>
-      <br>
-      <x-button @click.native="signup" style="border-radius:5px; width: 300px;">Create Account</x-button>
-      <br>
-      <x-button @click.native="signin" style="border-radius:5px; width: 300px;">Sign in</x-button>
+      <x-button @click.native="signin" style="border-radius:5px; width: 85%;font-size: 23px;">Sign In</x-button>
  </div>
 </template>
 <script>
@@ -40,16 +37,16 @@ export default {
     width: 100%;
     height: 100%;
 }
-.img {
-    margin-top:30%;
-    width: 90px;
+.image {
+    margin-top:90px;
+    width: 110px;
     height: 96px;
 }
 .title {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 28px;
+  font-size: 40px;
 }
 
 </style>
