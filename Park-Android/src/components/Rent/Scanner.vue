@@ -4,7 +4,6 @@
     <div class="scan">
       <div id="bcid">
         <div style="height:40%"></div>
-        <p class="tip">...loading...</p>
       </div>
       <!--<footer>
         <button @click="startRecognize">1.创建控件</button>
@@ -17,7 +16,7 @@
 </template>
 
 <script type='text/ecmascript-6'>
-import Header from '../common/Header'
+import Header from '../Common/Header'
 let scan = null
 
 export default {
@@ -62,6 +61,7 @@ export default {
     startScan () {
       if (!window.plus) return
       scan.start()
+      this.isLoading = false
     },
     // 关闭扫描
     cancelScan () {
@@ -79,7 +79,7 @@ export default {
       if (this.codeUrl !== null) {
         // user.locked
       }
-      this.$router.push({ path: '/rent/', params: this.codeUrl })
+      this.$router.push({ path: '/ParkingSpalinfo/', params: this.codeUrl })
     }
   },
   created () {
@@ -89,6 +89,7 @@ export default {
   mounted () {
     this.startRecognize()
     this.startScan()
+    this.isLoading = true
   }
 }
 </script>
