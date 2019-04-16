@@ -7,7 +7,7 @@ import com.oracle.hackson.webapp.kafka.demo.KafkaProperties;
 import com.oracle.hackson.webapp.kafka.demo.ProducerDemo;
 
 import java.util.Timer;
-import java.util.TimerTask;
+
 
 public class Simulation {
     public static ParkPort[] portArray;
@@ -16,15 +16,8 @@ public class Simulation {
     public static void main(String[] args) {
 
         portArray = creatParkingPort(10);
-        Timer timer1 = new Timer();
-        timer1.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                refreshEquInfo();
-            }
-        },0,10000);
-        Timer timer2 = new Timer();
-        timer2.scheduleAtFixedRate(new DoHeartBeatCheck(portArray[0]), 0, 10000);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new DoHeartBeatCheck(portArray[0]), 0, 10000);
         ProducerDemo producerThread = new ProducerDemo(KafkaProperties.TOPIC, true, portArray[0]);
         ConsumerDemo consumerThread = new ConsumerDemo(com.oracle.hackson.webapp.kafka.demo.KafkaProperties.TOPIC);
         producerThread.start();

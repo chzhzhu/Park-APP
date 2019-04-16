@@ -2,10 +2,9 @@ package com.oracle.hackson.webapp.java.main;
 
 public class User {
 
-    private Id _id = new Id();
     private String username = "";
     private String password = "";
-    private int account;
+    private int account= 0;
 
     public void setUsername(String username) {
         this.username = username;

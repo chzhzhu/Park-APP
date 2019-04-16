@@ -36,14 +36,14 @@ public class AccountResource {
             String userStr = json.toJson(user);
             String updateStr= getUpdateStr(userStr);
             Document document = MongoDBUtils.updateDocument(updateStr);
-            if (accountMoney > 0) {
+            if (accountMoney >= 0) {
                 MongoDBUtils.updateStringField(DB_NAME, COLLECTION_NAME, "username", username, document);
                 return "Set account successfully";
             } else {
                 return "Set account failed";
             }
         } else {
-            return "Set account failed";
+            return "No such account";
         }
     }
 
@@ -64,7 +64,7 @@ public class AccountResource {
             String userStr = json.toJson(user);
             String updateStr = getUpdateStr(userStr);
             Document document = MongoDBUtils.updateDocument(updateStr);
-            if (accountMoney > 0) {
+            if (accountMoney >= 0) {
                 MongoDBUtils.updateStringField(DB_NAME, COLLECTION_NAME, "username", username, document);
                 return "Pay successfully";
             } else {
@@ -84,7 +84,7 @@ public class AccountResource {
 
     private String getUpdateStr (String userStr) {
         String[] userStrs = userStr.split(",");
-        String updateStr= "{" + userStrs[1] + "," + userStrs[3];
+        String updateStr= userStrs[0] + "," + userStrs[2];
         return updateStr;
     }
 }

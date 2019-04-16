@@ -44,10 +44,11 @@ public class LoginResource {
     public String signUp(String userInfo){
         Gson json = new Gson();
         User user = json.fromJson(userInfo, User.class);
+        String userStr = json.toJson(user);
         if(loginValidation(user)){
             return "Duplicate User";
         }else{
-            BasicDBObject dbObject = (BasicDBObject)JSON.parse(userInfo);
+            BasicDBObject dbObject = (BasicDBObject)JSON.parse(userStr);
             Document document = new Document(dbObject.toMap());
             MongoDBUtils.insert(DB_NAME,COLLECTION_NAME,document);
             return "Sign Up Successfully";
@@ -60,8 +61,14 @@ public class LoginResource {
         String password = inputUserInfo.getPassword();
         String result = MongoDBUtils.findByUserName(DB_NAME,COLLECTION_NAME, username);
         System.out.println("resultjsonString:"+result);
+        String userStr = "{";
         if(result!=null){
-            User user = json.fromJson(result, User.class);
+            String[] userStrs = result.split(",");
+            for (int i = 1; i < userStrs.length; i++) {
+                userStr += userStrs[i];
+            }
+            userStr += userStrs[userStrs.length];
+            User user = json.fromJson(userStr, User.class);
             if(user.getPassword().equals(password)){
                 return true;
             }
