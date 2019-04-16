@@ -4,8 +4,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
-import com.mongodb.BasicDBObject;
-import com.mongodb.util.JSON;
 import com.oracle.hackson.webapp.simulation.Equipment;
 import org.bson.Document;
 
