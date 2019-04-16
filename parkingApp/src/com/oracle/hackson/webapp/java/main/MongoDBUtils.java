@@ -15,7 +15,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 public class MongoDBUtils {
 
-    private static final String HOST = "slc09ybj.us.oracle.com";
+    private static final String HOST = "127.0.0.1";
     private static final int PORT = 27017;
 
     public static MongoDatabase connectToDB(String databaseName){
