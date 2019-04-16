@@ -1,23 +1,28 @@
 <template>
-  <div class="scan">
-    <div id="bcid">
-      <div style="height:40%"></div>
-      <p class="tip">...载入中...</p>
+  <div>
+    <Header></Header>
+    <div class="scan">
+      <div id="bcid">
+        <div style="height:40%"></div>
+        <p class="tip">...loading...</p>
+      </div>
+      <!--<footer>
+        <button @click="startRecognize">1.创建控件</button>
+        <button @click="startScan">2.开始扫描</button>
+        <button @click="cancelScan">3.结束扫描</button>
+        <button @click="closeScan">4.关闭控件</button>
+      </footer>-->
     </div>
-    <footer>
-      <button @click="startRecognize">1.创建控件</button>
-      <button @click="startScan">2.开始扫描</button>
-      <button @click="cancelScan">3.结束扫描</button>
-
-      <button @click="closeScan">4.关闭控件</button>
-    </footer>
   </div>
 </template>
 
 <script type='text/ecmascript-6'>
+import Header from '../common/Header'
 let scan = null
 
 export default {
+  name: 'Scanner',
+  components: {Header},
   data () {
     return {
       codeUrl: ''
@@ -49,8 +54,9 @@ export default {
         result = result.replace(/\n/g, '')
         that.codeUrl = result
         alert(result)
-        that.closeScan()
       }
+      that.startScan()
+      that.goback()
     },
     // 开始扫描
     startScan () {
@@ -66,7 +72,23 @@ export default {
     closeScan () {
       if (!window.plus) return
       scan.close()
+    },
+    // 返回
+    goback () { // 返回
+      this.closeScan()
+      if (this.codeUrl !== null) {
+        // user.locked
+      }
+      this.$router.push({ path: '/rent/', params: this.codeUrl })
     }
+  },
+  created () {
+    this.startRecognize()
+    this.startScan()
+  },
+  mounted () {
+    this.startRecognize()
+    this.startScan()
   }
 }
 </script>

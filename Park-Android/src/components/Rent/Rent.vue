@@ -111,9 +111,11 @@ export default {
   }
   .btn1 {
     width: 30%;
+    text-align: center;
   }
   .btn2 {
     width: 50%;
+    text-align: center;
   }
   .noneMsg {
     text-align: center;
