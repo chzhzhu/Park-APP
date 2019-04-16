@@ -55,13 +55,10 @@ public class LoginResource {
     }
 
     public Boolean loginValidation(User inputUserInfo){
-        MongoDBUtils dbUtils = new MongoDBUtils();
         Gson json = new Gson();
         String username = inputUserInfo.getUsername();
         String password = inputUserInfo.getPassword();
-        System.out.println("username:"+username);
-        System.out.println("password:"+password);
-        String result = dbUtils.findByUserName(DB_NAME,COLLECTION_NAME, username);
+        String result = MongoDBUtils.findByUserName(DB_NAME,COLLECTION_NAME, username);
         System.out.println("resultjsonString:"+result);
         if(result!=null){
             User user = json.fromJson(result, User.class);

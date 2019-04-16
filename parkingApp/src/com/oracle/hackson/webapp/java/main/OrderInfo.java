@@ -2,15 +2,16 @@ package com.oracle.hackson.webapp.java.main;
 
 import java.util.Date;
 
-public class ParkSpaInfo {
-    private Id _id = new Id();
+public class OrderInfo {
     private String username;
     private int parkPortId;
     private int equId;
     private Date startTime;
     private Date endTime;
-    private int account;
     private int price;
+    private int orderId;
+    private boolean payFlag = false;
+
 
     public String getUsername() {
         return username;
@@ -24,10 +25,6 @@ public class ParkSpaInfo {
         return endTime;
     }
 
-    public int getAccount() {
-        return account;
-    }
-
     public int getParkPortId() {
         return parkPortId;
     }
@@ -36,8 +33,16 @@ public class ParkSpaInfo {
         return equId;
     }
 
-    public void setAccount(int account) {
-        this.account = account;
+    public int getPrice() {
+        return price;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public boolean isPayFlag() {
+        return payFlag;
     }
 
     public void setEndTime(Date endTime) {
@@ -60,10 +65,22 @@ public class ParkSpaInfo {
         this.username = username;
     }
 
+    public void setPrice() {
+        this.price = getParkPrice(startTime, endTime);
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public void setPayFlag(boolean payFlag) {
+        this.payFlag = payFlag;
+    }
+
     public int getParkPrice(Date startTime, Date endTime) {
-        long diff = startTime.getTime() - endTime.getTime();
-        int hours = (int)diff / (1000 * 60 * 60 );
-        int price = hours * 2;
+        long diff = endTime.getTime() - startTime.getTime();
+        int hours = (int)(diff / (1000 * 60 ));
+        int price = hours * 1;
         return price;
     }
 }

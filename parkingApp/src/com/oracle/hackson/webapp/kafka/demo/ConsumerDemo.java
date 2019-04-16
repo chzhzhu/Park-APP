@@ -50,10 +50,9 @@ public class ConsumerDemo extends ShutdownableThread{
                 MongoDBUtils.insert(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,documentPark);
             } else {
                 String equJson = gson.toJson(record.value());
-                BasicDBObject parkDbObject = (BasicDBObject)JSON.parse(equJson);
-                BasicDBObject update = new BasicDBObject("$set",parkDbObject);
-                Document parkDocument = new Document(update.toMap());
-                MongoDBUtils.update(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,"parkPortId",record.key(),parkDocument);
+                System.out.println(equJson);
+//                Document parkDocument = MongoDBUtils.updateDocument(equJson);
+//                MongoDBUtils.updateIntField(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,"parkPortId",record.key(),parkDocument);
             }
             for (Equipment e : record.value().equ) {
                 System.out.println("Received message: " + e.getEquId() + "'s alive statue is " + e.isAlive() + ", at offset " + record.offset());
@@ -65,10 +64,9 @@ public class ConsumerDemo extends ShutdownableThread{
                     MongoDBUtils.insert(KafkaProperties.DATABASE, KafkaProperties.EQUIPMENT_COL, equDocument);
                 } else{
                     String equStr = gson.toJson(e);
-                    BasicDBObject dbObjectEqu = (BasicDBObject)JSON.parse(equStr);
-                    BasicDBObject update = new BasicDBObject("$set",dbObjectEqu);
-                    Document equDocument = new Document(update.toMap());
-                    MongoDBUtils.update(KafkaProperties.DATABASE,KafkaProperties.EQUIPMENT_COL,"equId",String.valueOf(e.getEquId()),equDocument);
+                    System.out.println(equStr);
+//                    Document equDocument = MongoDBUtils.updateDocument(equStr);
+//                    MongoDBUtils.updateIntField(KafkaProperties.DATABASE,KafkaProperties.EQUIPMENT_COL,"equId",String.valueOf(e.getEquId()),equDocument);
                 }
             }
 

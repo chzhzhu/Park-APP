@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.util.JSON;
 import com.oracle.hackson.webapp.simulation.Equipment;
-import com.oracle.hackson.webapp.simulation.Simulation;
 import org.bson.Document;
 
 @Path("parkport")
@@ -21,10 +20,10 @@ public class EuqEventResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
     public String unlockEqu(String equInfo){
-        String equId = getEquId(equInfo);
+        String equId = getKeyValue(equInfo);
         Document document = getDocument(equInfo);
         if(validateEqu(equId, "Unlocked")){
-            MongoDBUtils.update(DB_NAME, COLLECTION_NAME_EQU,"equId",equId,document);
+            MongoDBUtils.updateIntField(DB_NAME, COLLECTION_NAME_EQU,"equId",equId,document);
             return "Unlock successfully";
         }else{
             return "Unlock Failed";
@@ -37,9 +36,9 @@ public class EuqEventResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public String lockEqu(String equInfo){
         Document document = getDocument(equInfo);
-        String equId = getEquId(equInfo);
+        String equId = getKeyValue(equInfo);
         if(validateEqu(equId, "Locked")){
-            MongoDBUtils.update(DB_NAME, COLLECTION_NAME_EQU,"equId",equId,document);
+            MongoDBUtils.updateIntField(DB_NAME, COLLECTION_NAME_EQU,"equId",equId,document);
             return "Lock successfully";
         }else{
             return "Lock Failed";
@@ -62,19 +61,17 @@ public class EuqEventResource {
         return response;
     }
 
-    private String getEquId(String equInfo) {
-        int startIndex = equInfo.indexOf(":");
-        int endIndex = equInfo.indexOf(",");
-        String equId = equInfo.substring(startIndex+1,endIndex);
-        return equId;
+    public String getKeyValue(String info) {
+        int startIndex = info.indexOf(":");
+        int endIndex = info.indexOf(",");
+        String keyValue = info.substring(startIndex+1,endIndex);
+        return keyValue;
     }
 
-    private Document getDocument(String equInfo){
-        String[] strings = equInfo.split(",");
+    public Document getDocument(String info){
+        String[] strings = info.split(",");
         String jsonStr = "{"+strings[1];
-        BasicDBObject dbObject = (BasicDBObject)JSON.parse(jsonStr);
-        BasicDBObject update = new BasicDBObject("$set",dbObject);
-        Document document = new Document(update.toMap());
+        Document document = MongoDBUtils.updateDocument(jsonStr);
         return document;
     }
 
