@@ -18,6 +18,7 @@
     "quasar": "^1.0.0-beta.16",
     "quasar-framework": "^0.17.20",
     "vue": "^2.5.2",
+    "vue-axios": "^2.1.4",
     "vue-baidu-map": "^0.21.19",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",

@@ -22,7 +22,7 @@ import { XInput,Group,XButton } from 'vux'
                 username: '',
                 password: '',
                 apiUrl: 'http://localhost:8083/parkingApp/rest/hello/login',
-                payload: {'username':this.username, 'password':this.password}
+                payload: {'username':'', 'password':''}
             }
         },
         components: {
@@ -32,22 +32,26 @@ import { XInput,Group,XButton } from 'vux'
         },
         methods: {
               login() {
-                console.log(this.apiUrl + this.payload)
-                this.$http.post(this.apiUrl, this.payload)
-                                   .then(function(res){
-                                      var res1 = res.data
-                                      if (res1 == 'login success')
-                                      {
-                                        this.$router.push({path: '/Map'})
-                                      }
-                                      else
-                                      {
-                                        alert(res1)
-                                      }
-                                   },function(res){
-                                      alert('Signin failed!')
-                                   }
-                                   )
+                console.log(this.username + this.password)
+                this.payload.username = this.username.replace(/\s+/g,"");
+                this.payload.password = this.password
+                var payloadStr = JSON.stringify(this.payload)
+                console.log(this.apiUrl + payloadStr)
+                this.axios.post(this.apiUrl, payloadStr,{headers: {'Content-Type': 'application/json;charset=UTF-8'}})
+                  .then(res=>{
+                    console.log(res)
+                    var resDate = res.data
+                    console.log(resDate)
+                    if (resDate=='login success'){
+                        this.$router.push({path: '/Map'})
+                      }
+                      else{
+                        alert('Login Failed')
+                      }
+                  })
+                  .catch(function (error) {
+                    console.log(error)
+                  })
               },
               change (val) {
                     console.log('on change', val)
