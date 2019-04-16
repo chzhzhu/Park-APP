@@ -28,7 +28,9 @@ export default {
       return {
         password: '',
         password2: '',
-        username: ''
+        username: '',
+        apiUrl: 'http://localhost:8083/parkingApp/rest/hello/signup',
+        payload: {'username':'', 'password':''}
       }
   },
   components: {
@@ -38,12 +40,30 @@ export default {
   },
   methods: {
     signa() {
-      this.$router.push({path: '/Signin'})
+      console.log(this.username + this.password)
+      this.payload.username = this.username.replace(/\s+/g,"");
+      this.payload.password = this.password
+      var payloadStr = JSON.stringify(this.payload)
+      console.log(this.apiUrl + payloadStr)
+      this.axios.post(this.apiUrl, payloadStr,{headers: {'Content-Type': 'application/json;charset=UTF-8'}})
+                .then(res=>{
+                    console.log(res)
+                    var resDate = res.data
+                    console.log(resDate)
+                    if (resDate=='Sign Up Successfully'){
+                        this.$router.push({path: '/Signin'})
+                    }
+                    else{
+                        alert('Signup Failed')
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
     },
     change (val) {
       console.log('on change', val)
-    },
-
+    }
   }
 }
 </script>

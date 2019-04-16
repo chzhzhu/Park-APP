@@ -6,8 +6,10 @@ import router from './router'
 import BaiduMap from 'vue-baidu-map'
 import vuex from 'vuex'
 import  VueResource  from 'vue-resource'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
-Vue.use(VueResource)
+Vue.use(VueAxios,axios)
 Vue.use(vuex)
 Vue.use(BaiduMap, {
   /* Visit http://lbsyun.baidu.com/apiconsole/key for details about app key. */
