@@ -41,7 +41,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
+@import '~vux/src/styles/close.less';
 * {
   margin: 0;
   padding: 0;
@@ -58,7 +59,11 @@ body,
   text-align: center;*/
   color: #2c3e50;
   margin-top: 0px;
+  width: 100%;
+  height: 100%;
   background-color: #F0F0F0;
+  overflow: hidden;
+  text-decoration: none;
 }
 .turn-on-enter {
   transform: translate3d(100%, 0, 0);
@@ -125,5 +130,20 @@ body,
   width: 100%;
   left: 0;
   top: 0;
+}
+a {
+  text-decoration: none;
+}
+p.weui-media-box__desc {
+  text-decoration: none;
+  font-size: 18px;
+  margin-top: 5px;
+  color: #707070;
+}
+h4.weui-media-box__title {
+  font-size: 20px;
+}
+.weui-cell__bd {
+  margin-left: 10px;
 }
 </style>

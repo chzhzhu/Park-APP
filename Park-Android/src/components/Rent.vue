@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header></Header>
     <loading></loading>
     <div v-if="user.locked == true">
       <group id="group">
@@ -25,30 +24,27 @@
     </div>
     <div v-else>
       <div>
-        <div style="text-align: center;margin-top: 70px;"><img src="../../assets/icon/rentInfo_hint.png" style="width: 60px;height: 60px;"></div>
-         <br><br>
+        <br>
+        <br>
         <p class="noneMsg">
-          You don't have any parking info here.
+          You don't have any Parking Info here.
         </p>
         <br>
         <p class="noneMsg">
-          Please rent a parking space first.
+          Please go renting Firstly!
         </p>
         <br>
       </div>
-      <x-button class="btn1" plain @click.native="goRent">Scan to rent</x-button>
+      <x-button class="btn1" @click.native="goRent">Rent</x-button>
     </div>
-    <Bottom></Bottom>
   </div>
 </template>
 
 <script>
-import Header from '../Common/Header'
-import Bottom from '../Common/Bottom'
 import { Cell, Group, Loading, XButton, Confirm, Alert } from 'vux'
 export default {
   name: 'Rent',
-  components: {XButton, Cell, Group, Loading, Confirm, Alert, Header, Bottom},
+  components: {XButton, Cell, Group, Loading, Confirm, Alert},
   data () {
     return {
       user: {
@@ -110,9 +106,7 @@ export default {
     -webkit-align-content: initial;
   }
   .btn1 {
-    width: 85%;
-    margin-top: 30px;
-    text-align: center;
+    width: 30%;
   }
   .btn2 {
     width: 50%;
@@ -120,6 +114,5 @@ export default {
   .noneMsg {
     text-align: center;
     color: red;
-    font-size: 20px;
   }
 </style>

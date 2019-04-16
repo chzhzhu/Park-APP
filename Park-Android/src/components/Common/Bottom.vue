@@ -1,17 +1,17 @@
 <template>
-  <div>
+  <div id="footer">
     <tabbar>
         <tabbar-item selected link="/Map" style="text-decoration: none;">
           <img slot="icon" src="../../assets/icon/bottom_map.png">
-          <span slot="label">Map</span>
+          <span slot="label" style="font-size: 12px;color: #999999;">Map</span>
         </tabbar-item>
         <tabbar-item selected link="/Rent" style="text-decoration: none;">
           <img slot="icon" src="../../assets/icon/bottom_rentInfo.png">
-          <span slot="label">Rent Info</span>
+          <span slot="label" style="font-size: 12px;color: #999999;">Rent Info</span>
         </tabbar-item>
         <tabbar-item selected link="/Me" style="text-decoration: none;">
           <img slot="icon" src="../../assets/icon/bottom_me.png">
-          <span slot="label">Me</span>
+          <span slot="label" style="font-size: 12px;color: #999999;">Me</span>
         </tabbar-item>
       </tabbar>
   </div>
@@ -48,10 +48,13 @@ export default {
 </script>
 
 <style>
-.footer{
-height: 100%;
+#footer{
+height: 50px;
 width: 100%;
 position: fixed;
 bottom: 0;
+}
+p.weui-tabbar__label{
+
 }
 </style>

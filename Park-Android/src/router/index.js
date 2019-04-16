@@ -12,7 +12,6 @@ import Scanner from '@/components/Rent/Scanner'
 import Me from '@/components/Me/Me'
 import PayDetails from '@/components/Me/PayDetails'
 import ResetPassword from '@/components/Me/ResetPassword'
-
 Vue.use(Router)
 
 export default new Router({

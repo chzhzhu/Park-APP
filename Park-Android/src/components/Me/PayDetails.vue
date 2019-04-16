@@ -5,7 +5,7 @@
             <img src="../../assets/icon/payDetails_money.png" id="money">
             <span id="myPurse">My Purse</span>
             <span id="account">1000.00</span>
-            <x-button plain style="margin-top: 50px;width: 300px;" @click.native="onClickCharge">charge</x-button>
+            <x-button plain style="margin-top: 50px;width: 85%;" @click.native="onClickCharge">Charge</x-button>
         </div>
         <Bottom></Bottom>
         <div v-transfer-dom>
@@ -22,7 +22,7 @@
                   <br>
                   <div style="margin-left: 15px;"><span style="font-size: 18px;">Please enter the recharge amount:</span></div>
                   <group style="margin:8px 18px;">
-                    <x-input v-model="inputValue" type="number" placeholder="¥ 0.00  CNY" style="padding: 10px 5px;font-size: 20px;" :show-clear="true"  @on-click-clear-icon="onClickClearIcon" @on-focus="onFocus"></x-input>
+                    <x-input v-model="inputValue" type="number" placeholder="¥ 0.00  CNY" style="padding: 10px 5px;font-size: 20px;" :show-clear="true"  @on-click-clear-icon="onClickClearIcon" @on-focus="onFocus" required></x-input>
                   </group>
                   <br>
                   <x-button plain style="margin-top: 10px;margin-bottom: 15px;width: 90%" @click.native="onClickCommit">Commit</x-button>

@@ -1,20 +1,16 @@
 <template>
  <div>
-     <h1 style="margin-top:10%">Parking System</h1>
+    <div style="text-align: center;margin-top: 95px;font-size: 25px;color: #13227a;"><h1>Login</h1></div>
+    <div style="text-align: center;"><img class="image" src="../../assets/icon/login.png"></div>
     <div class="name">
-    <group>
-       <x-input title="Username" name="mobile" placeholder="Please input phone number" keyboard="number"
-       mask="999 9999 9999" v-model="username" :max="13" is-type="china-mobile"></x-input>
-    </group>
-    </div>
-    <br>
-    <div class="pwd">
-    <group>
-       <x-input title="Password" type="password" placeholder="Please enter your password" v-model="password" :min="6" :max="12" @on-change="change"></x-input>
-    </group>
+      <group>
+         <x-input title="Username" name="mobile" placeholder="Phone number" keyboard="number"
+         mask="999 9999 9999" v-model="username" :max="13" is-type="china-mobile"></x-input>
+         <x-input title="Password" type="password" placeholder="Password" v-model="password" :min="6" :max="18" @on-change="change"></x-input>
+      </group>
     </div>
     <div class="button">
-      <x-button @click.native="login" style="order-radius:5px; width: 300px;">Login</x-button>
+      <x-button plain @click.native="login" style="order-radius:5px; width: 85%;margin-top: 50px;">Login</x-button>
     </div>
  </div>
 </template>
@@ -73,16 +69,12 @@ body,p,ul,li{
     text-decoration: none;
     list-style: none;
 }
-
+.image {
+  margin-top:30px;
+  height: 80px;
+  width: 80px;
+}
 .name{
-margin-top:10%;
-}
-
-.pwd{
-margin-top:10px;
-}
-
-.button{
-margin-top:10%;
+margin-top: 10px;
 }
 </style>
