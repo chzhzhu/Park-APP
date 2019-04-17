@@ -3,23 +3,29 @@
       <Header></Header>
         <div style="margin-top: 15px; text-align: left;">
           <div id="hint"><span>You need to login again after you reset your password.</span></div>
-            <x-input class="resetInput" title="UserName" :readonly="true" style="margin-top: 15px;" value="123"></x-input>
-            <x-input class="resetInput" title="Old Password" type="password" placeholder="old password" :min="6" :max="18"></x-input>
-            <x-input class="resetInput" title="New Password" type="password" placeholder="new password" :min="6" :max="18" v-model="password"></x-input>
-            <x-input class="resetInput" title="Confirm Password" type="password" placeholder="new password" :min="6" :max="18" v-model="password2" :equal-with="password"></x-input>
-            <x-button plain style="margin-top: 50px;width: 85%;" @click.native="onClick">Commit</x-button>
+            <x-input class="resetInput" title="UserName" :readonly="true" style="margin-top: 15px;" v-model="user"></x-input>
+            <x-input class="resetInput" title="Old Password" type="password" placeholder="old password" :min="6" :max="18" v-model="oldpassword"></x-input>
+            <x-input class="resetInput" title="New Password" type="password" placeholder="new password" :min="6" :max="18" v-model="newpassword"></x-input>
+            <x-input class="resetInput" title="Confirm Password" type="password" placeholder="new password" :min="6" :max="18" v-model="newpassword2" :equal-with="newpassword"></x-input>
+            <div>
+              <img src="../../assets/icon/rentInfo_hint.png" style="width: 20px;height: 20px;margin-top: 10px;margin-left: 5px;">
+              <span style="font-size: 15px;">Passwords must be at least 6-18 characters long</span></div>
+            <x-button plain style="margin-top: 50px;width: 85%;" @click.native="onClickCommit">Commit</x-button>
+
             <div v-transfer-dom>
               <confirm
-                v-model="show6"
-                :show-cancel-button="false"
+                v-model="showConfirm"
+                :show-cancel-button="true"
                 confirm-text="Confirm"
-                title="HINT"
-                @on-confirm="onConfirm"
-                @on-show="onShow"
-                @on-hide="onHide">
-                <p style="text-align:center;">PLEASE LOGIN AGAIN</p>
+                cancel-text="Cancel"
+                @on-confirm="onClickConfirm">
+                <p style="text-align:center;font-size: 20px;">Please login again</p>
               </confirm>
             </div>
+            <toast v-model="showPositionValue" type="text" :time="800" is-show-mask :text="toastText" position="middle"></toast>
+        </div>
+        <div>
+          <loading :show="isshowLoading" :text="loadingText"></loading>
         </div>
       <Bottom></Bottom>
     </div>
@@ -28,15 +34,25 @@
 <script>
 import Header from '../Common/Header'
 import Bottom from '../Common/Bottom'
-import { XInput, XButton, Confirm, TransferDomDirective as TransferDom, XSwitch, Toast } from 'vux'
+import { XInput, XButton, Confirm, TransferDomDirective as TransferDom, XSwitch, Toast, Loading } from 'vux'
 
 export default {
   data () {
     return {
-      show6: false,
+      showConfirm: false,
       confirmLink: '',
-      password: '',
-      password2: ''
+      oldpassword: '',
+      newpassword: '',
+      newpassword2: '',
+      user: this.GLOBAL.USERNAME,
+      showPositionValue: false,
+      toastText: '',
+      isshowLoading: false,
+      loadingText: '',
+      user1: {'username':'','password':''},
+      user2: {'username':'','password':''},
+      payload: {},
+      resetPasswordUrl: this.GLOBAL.DOMAIN + 'hello/resetpasswd'
     }
   },
   directives: {
@@ -48,29 +64,54 @@ export default {
     XInput,
     XButton,
     Confirm,
-    Toast
+    Toast,
+    Loading
   },
   methods: {
-    onHide () {
-      console.log('on hide')
+    showToast (val) {
+      this.toastText = val
+      this.showPositionValue = true
     },
-    onShow () {
-      console.log('on show')
+    showLoading () {
+      this.loadingText = 'Loading...'
+      this.isshowLoading = true
     },
-    onCancel () {
-      console.log('on cancel')
-    },
-    onConfirm () {
-      const self = this
-      console.log('on confirm')
+    onClickConfirm () {
       self.$router.push({
         path: '/Signin'
       })
     },
-    onClick () {
-      const self = this
-      self.show6 = true
+    onClickCommit () {
+      if(this.oldpassword==''||this.newpassword==''||this.newpassword2==''){
+        this.showToast('Can not be empty')
+      }else if(this.newpassword!=this.newpassword2){
+        this.showToast('Password mismatch')
+      }else{
+        this.showLoading()
+        //reset password
+        this.user1.username = this.user
+        this.user2.username = this.user
+        this.user1.password = this.oldpassword
+        this.user2.password = this.newpassword
+        var user1Str = JSON.stringify(this.user1)
+        var user2Str = JSON.stringify(this.user2)
+        var payloadStr = '{'+user1Str+','+user2Str+'}'
+        console.log(this.resetPasswordUrl + payloadStr)
+        this.axios.get(this.resetPasswordUrl,payloadStr,{headers: {'Content-Type': 'application/json;charset=UTF-8'}}).then(res=>{
+          console.log(res)
+          var resDate = res.data
+          console.log(resDate.account)
+          if(resDate==''){
+            this.showConfirm = true
+          }else{
+            this.showToast('Failed to reset password')
+          }
+        }).catch(function(error){
+          console.log(error)
+        }) 
+      }
     }
+    
   }
 }
 </script>

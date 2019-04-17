@@ -21,7 +21,7 @@ import { XInput,Group,XButton } from 'vux'
             return {
                 username: '',
                 password: '',
-                apiUrl: 'http://localhost:8083/parkingApp/rest/hello/login',
+                apiUrl: this.GLOBAL.DOMAIN + 'hello/login',
                 payload: {'username':'', 'password':''}
             }
         },
@@ -33,7 +33,7 @@ import { XInput,Group,XButton } from 'vux'
         methods: {
               login() {
                 console.log(this.username + this.password)
-                this.payload.username = this.username.replace(/\s+/g,"");
+                this.payload.username = this.username.replace(/\s+/g,"")
                 this.payload.password = this.password
                 var payloadStr = JSON.stringify(this.payload)
                 console.log(this.apiUrl + payloadStr)
@@ -44,6 +44,7 @@ import { XInput,Group,XButton } from 'vux'
                     console.log(resDate)
                     if (resDate=='login success'){
                         this.$router.push({path: '/Map'})
+                        this.GLOBAL.USERNAME = this.username.replace(/\s+/g,"")
                       }
                       else{
                         alert('Login Failed')
