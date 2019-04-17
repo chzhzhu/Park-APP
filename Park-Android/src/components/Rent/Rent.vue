@@ -1,13 +1,15 @@
 <template>
   <div>
     <Header></Header>
-    <loading></loading>
-    <div v-if="user.locked == true">
+    <loading v-model="isLoading"></loading>
+    <div v-if="user.equStatus == 'Unlocked'">
       <group id="group">
-        <cell :title="username">{{user.name}}</cell>
-        <cell :title="parkingTime">{{user.parkingTime}}</cell>
-        <cell :title="parkingNum">{{user.parkingNum}}</cell>
-        <cell :title="rent">{{user.rent}}</cell>
+        <cell :title="username">{{user.username}}</cell>
+        <cell :title="order">{{user.orderId}}</cell>
+        <cell :title="parkingTime">{{user.startTime}}</cell>
+        <cell :title="parkingProt">{{user.parkingProtId}}</cell>
+        <cell :title="parkingNum">{{user.equId}}</cell>
+        <cell :title="rent">2¥/h</cell>
       </group>
       <br>
       <x-button class="btn2" @click.native="goReturnParking">Return Parking</x-button>
@@ -52,20 +54,24 @@ export default {
   data () {
     return {
       user: {
-        name: 'xxx',
-        parkingTime: '2019-04-09',
-        parkingNum: '007',
-        rent: '2',
-        locked: false
+        username: '',
+        startTime: '',
+        equId: '',
+        orderId: '',
+        equStatus: '',
+        parkingProtId: ''
       },
       title: 'Rent Info',
       username: 'Username:',
       parkingTime: 'Parking Time:',
       parkingNum: 'Parking Num:',
       rent: 'Rent:',
+      order: 'Order',
+      parkingProt: 'ParkingPort',
       confirmShow: false,
       returnContent: 'Are you sure return the parking port?',
-      alertShow: false
+      alertShow: false,
+      isLoading: true
     }
   },
   methods: {
@@ -87,6 +93,7 @@ export default {
       console.log('on confirm')
       // 与后台交互，更改车位信息
       self.alertShow = true
+      this.returnParking()
     },
     onShow () {
       console.log('on show')
@@ -96,9 +103,43 @@ export default {
     },
     onAlertHide () {
       const self = this
-      self.$router.push({path: '/HelloWorld'})
+      self.$router.push({path: '/Map'})
+    },
+    returnParking () {
+      const self = this
+      const url = 'http://localhost:8083/parkingApp/rest/collection/lock'
+      const params = {username: self.GLOBAL.username, parkingProtId: self.user.parkingProtId, orderId: self.user.orderId, equStatus: 'Locked'}
+      self.axios.post(url, JSON.stringify(params), {headers: {'Content-Type': 'application/json;charset=UTF-8'}}).then(res => {
+        if (res.data.status === 200) {
+          console.log('success')
+        } else {
+          console.log('fail')
+        }
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
+    getUserParkingInfo () {
+      const self = this
+      const url = 'http://localhost:8083/parkingApp/rest/order/openOrder'
+      const param = {username: self.GLOBAL.username}
+      self.axios.get(url, {params: param}, {headers: {'Content-Type': 'application/json;charset=UTF-8'}}).then(res => {
+        if (res.data.status === 200) {
+          console.log(res.data)
+          self.isLoading = false
+          self.user = res.data
+          console.log('success')
+        } else {
+          console.log('fail')
+        }
+      }).catch(function (error) {
+        console.log(error)
+      })
     }
 
+  },
+  created () {
+    this.getUserParkingInfo()
   }
 
 }

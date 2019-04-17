@@ -78,8 +78,8 @@ export default {
       this.closeScan()
       if (this.codeUrl !== null) {
         // user.locked
+        this.$router.push({ path: '/ParkingSpalinfo/', params: this.codeUrl })
       }
-      this.$router.push({ path: '/ParkingSpalinfo/', params: this.codeUrl })
     }
   },
   created () {
@@ -89,7 +89,6 @@ export default {
   mounted () {
     this.startRecognize()
     this.startScan()
-    this.isLoading = true
   }
 }
 </script>
