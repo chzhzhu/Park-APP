@@ -7,6 +7,7 @@ import BaiduMap from 'vue-baidu-map'
 import vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import global_ from './components/Common/Global'//引用文件
 
 Vue.use(VueAxios,axios)
 Vue.use(vuex)
@@ -38,3 +39,5 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+Vue.prototype.GLOBAL = global_

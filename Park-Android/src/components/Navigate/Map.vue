@@ -130,8 +130,6 @@ export default {
        this.points.push(position8)
        this.points.push(position9)
        this.points.push(position10)
-       this.username = this.$route.params.username
-       this.$store.commit('setLoginAccount', this.username)
     }
 }
 </script>
