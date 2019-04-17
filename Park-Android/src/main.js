@@ -17,11 +17,15 @@ Vue.use(BaiduMap, {
 Vue.config.productionTip = false
 var store = new vuex.Store({
   state: {
-    states: 'turn-on'
+    states: 'turn-on',
+    username:''
   },
   mutations: {
     setTransition (state, states) {
       state.states = states
+    },
+    setLoginAccount (state, username) {
+      state.username = username
     }
   }
 })

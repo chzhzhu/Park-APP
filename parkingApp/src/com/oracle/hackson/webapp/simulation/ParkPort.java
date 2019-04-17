@@ -8,25 +8,25 @@ public class ParkPort {
     double latitude;
     int parkPortId;
     int equNum;
-    int unlockedEquId;
-    int lockedEquId;
-    int disabledEquId;
+    int unlockedEquNum;
+    int lockedEquNum;
+    int disabledEquNum;
     public Equipment[] equ;
-    private static int id = 1;
+
 
 
     public ParkPort(double lon, double lat, int num) {
-        resetId();
-        this.setParkPortId(id);
+        //resetId();
+        this.setParkPortId(Simulation.id);
         this.setLongitude(lon);
         this.setLatitude(lat);
         this.setEquNum(num);
         Equipment.num = 1;
         equ = new Equipment[num];
         for (int i = 0; i <num ; i++) {
-            equ[i] =new Equipment(id);
+            equ[i] =new Equipment(Simulation.id);
         }
-        id++;
+        Simulation.id++;
     }
 
     public double getLatitude() {
@@ -53,16 +53,53 @@ public class ParkPort {
         this.equNum = equNum;
     }
 
-    public int getDisabledEquId() {
-        return disabledEquId;
+    public void setUnlockedEquNum() {
+        Equipment equipment = null;
+        int count = 0;
+        for(Equipment e : this.getEqu()){
+            equipment = e;
+            if (equipment.getEquStatus().equals("Unlocked")) {
+                count++;
+            }
+        }
+        unlockedEquNum = count;
     }
 
-    public int getLockedEquId() {
-        return lockedEquId;
+    public void setDisabledEquNum() {
+        Equipment equipment = null;
+        int count = 0;
+        for(Equipment e : this.getEqu()){
+            equipment = e;
+            if (!equipment.isAlive()) {
+                count++;
+            }
+        }
+        disabledEquNum = count;
     }
 
-    public int getUnlockedEquId() {
-        return unlockedEquId;
+    public void setLockedEquNum() {
+        Equipment equipment = null;
+        int count = 0;
+        for(Equipment e : this.getEqu()){
+            equipment = e;
+            if (equipment.getEquStatus().equals("Locked")) {
+                count++;
+            }
+        }
+        lockedEquNum = count;
+    }
+
+    public int getDisabledEquNum() {
+        return disabledEquNum;
+    }
+
+    public int getLockedEquNum() {
+
+        return lockedEquNum;
+    }
+
+    public int getUnlockedEquNum() {
+        return unlockedEquNum;
     }
 
     public int getParkPortId() {
@@ -74,7 +111,7 @@ public class ParkPort {
     }
 
     public void resetId() {
-        this.id = 1;
+        Simulation.id = 1;
     }
 
     public Equipment[] getEqu() {

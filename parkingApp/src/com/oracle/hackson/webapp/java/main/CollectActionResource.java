@@ -18,7 +18,7 @@ public class CollectActionResource {
         OrderResource orderResource = new OrderResource();
         EuqEventResource euqEventResource = new EuqEventResource();
         String orderInfo = "";
-        String equInfo = "{" + payloadStrs[payloadStrs.length-2] + "," + payloadStrs[payloadStrs.length-1];
+        String equInfo = "{" + payloadStrs[payloadStrs.length-3] + "," + payloadStrs[payloadStrs.length-2] + "," + payloadStrs[payloadStrs.length-1];
         for (int i = 0; i < payloadStrs.length-2 ; i++) {
             orderInfo += payloadStrs[i] + ",";
         }
@@ -47,7 +47,7 @@ public class CollectActionResource {
             orderInfo += payloadStrs[i] + ",";
         }
         orderInfo += payloadStrs[payloadStrs.length-2] + "}";
-        String equInfo = "{" + payloadStrs[payloadStrs.length-3] + "," + payloadStrs[payloadStrs.length-1];
+        String equInfo = "{" + payloadStrs[1] + "," + payloadStrs[payloadStrs.length-3] + "," + payloadStrs[payloadStrs.length-1];
         OrderResource orderResource = new OrderResource();
         EuqEventResource euqEventResource = new EuqEventResource();
         String orderResponse = orderResource.endOrder(orderInfo);

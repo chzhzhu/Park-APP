@@ -12,39 +12,32 @@ import java.util.Timer;
 public class Simulation {
     public static ParkPort[] portArray;
     private int num;
+    public static int id = 1;
 
     public static void main(String[] args) {
-
-        portArray = creatParkingPort(10);
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new DoHeartBeatCheck(portArray[0]), 0, 10000);
-        ProducerDemo producerThread = new ProducerDemo(KafkaProperties.TOPIC, true, portArray[0]);
-        ConsumerDemo consumerThread = new ConsumerDemo(com.oracle.hackson.webapp.kafka.demo.KafkaProperties.TOPIC);
-        producerThread.start();
-        consumerThread.start();
+        Double[] points = {118.796, 32.024, 118.864, 32.033, 118.899, 31.900, 119.057, 32.027, 118.588, 32.017, 118.694, 31.799,119.127, 31.795, 118.878, 31.736, 119.116, 31.903, 118.416, 31.918};
+            portArray = creatParkingPort(points,10);
+        for (int i = 0; i < 10; i++) {
+            Timer timer = new Timer();
+            timer.scheduleAtFixedRate(new DoHeartBeatCheck(portArray[i]), 0, 10000);
+            ProducerDemo producerThread = new ProducerDemo(KafkaProperties.TOPICS[i], true, portArray[i]);
+            ConsumerDemo consumerThread = new ConsumerDemo(com.oracle.hackson.webapp.kafka.demo.KafkaProperties.TOPICS[i]);
+            producerThread.start();
+            consumerThread.start();
+        }
     }
 
     public Simulation() {
         this.num = 10;
     }
 
-    public static ParkPort[] creatParkingPort (int pNum) {
+    public static ParkPort[] creatParkingPort (Double[] points, int pNum) {
         ParkPort[] pArray = new ParkPort[pNum];
-        for (int i = 0; i < pNum; i++) {
-            ParkPort p = new ParkPort(1.0,1.0,10);
-            pArray[i] = p;
+        for (int i = 0; i < pNum*2; i=i+2) {
+            ParkPort p = new ParkPort(points[i],points[i+1],10);
+            pArray[i/2] = p;
         }
         return pArray;
-    }
-
-    public static void refreshEquInfo(){
-        Gson json = new Gson();
-        for (Equipment e : portArray[0].getEqu()){
-            String equQuery = MongoDBUtils.findEquByEquId(KafkaProperties.DATABASE,KafkaProperties.EQUIPMENT_COL,e.getEquId());
-            Equipment equipment = json.fromJson(equQuery,Equipment.class);
-            e = equipment;
-            System.out.println("refresh success");
-        }
     }
 
 

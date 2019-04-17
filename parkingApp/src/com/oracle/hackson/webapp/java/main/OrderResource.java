@@ -30,6 +30,28 @@ public class OrderResource {
         return response;
     }
 
+    @GET
+    @Path("openOrder")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getOpenOrderByUser(@DefaultValue("18661096693") @QueryParam("username") String username){
+        String response = MongoDBUtils.findAllOrdsByUserName(DB_NAME, COLLECTION_NAME, username);
+        String resStr = "";
+        if (response != null && !response.isEmpty()) {
+            Gson json = new Gson();
+            String[] resultStrs = response.split("/n");
+            for (int i = 0; i < resultStrs.length; i++) {
+                OrderInfo queryOrder = json.fromJson(resultStrs[i], OrderInfo.class);
+                Date endTime = queryOrder.getEndTime();
+                if (endTime == null) {
+                    resStr = resultStrs[i];
+                    break;
+                }
+            }
+            return resStr;
+        }
+        return response;
+    }
+
     @POST
     @Path("addOrder")
     @Produces(MediaType.TEXT_PLAIN)
@@ -41,8 +63,9 @@ public class OrderResource {
         Date startDate = new Date();
         String username = order.getUsername();
         String result = MongoDBUtils.findAllOrdsByUserName(DB_NAME, COLLECTION_NAME, username);
-        String[] resultStrs = result.split("/n");
+
         if (result != null && !result.isEmpty()) {
+            String[] resultStrs = result.split("/n");
             for (int i = 0; i < resultStrs.length; i++) {
                 OrderInfo queryOrder = json.fromJson(resultStrs[i], OrderInfo.class);
                 createFlag = queryOrder.isPayFlag();

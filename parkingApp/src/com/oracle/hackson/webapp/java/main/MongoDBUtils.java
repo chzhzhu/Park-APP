@@ -50,7 +50,7 @@ public class MongoDBUtils {
         collection.updateMany(eq(fieldName,value),dbObject);
     }
 
-    public static String findAllEquByParkPort(String databaseName,String collectionName,String parkPortId) {
+    public static String findAllEquByParkPort(String databaseName,String collectionName,int parkPortId) {
         MongoCollection collection = getCollection(databaseName,collectionName);
         FindIterable<Document> findIterable = collection.find(eq("parkPortId", parkPortId));
         MongoCursor<Document> mongoCursor = findIterable.iterator();
@@ -58,7 +58,7 @@ public class MongoDBUtils {
         return allEquInfo.toString();
     }
 
-    public static String findEquByEquId(String databaseName,String collectionName,long equipmentId) {
+    public static String findEquByEquId(String databaseName,String collectionName,int equipmentId) {
         String result = null;
         MongoCollection collection = getCollection(databaseName,collectionName);
         FindIterable<Document> findIterable = collection.find(eq("equId", equipmentId));

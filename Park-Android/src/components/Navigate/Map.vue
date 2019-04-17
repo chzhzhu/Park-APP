@@ -3,7 +3,6 @@
         <baidu-map class="map" :center="center" :zoom="zoom" @ready="handler">
             <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
             <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"></bm-geolocation>
-            <bm-marker :position="markerPoint" :dragging="true" @click="infoWindowOpen(0)"></bm-marker>
             <bm-marker :position=points[0] :dragging="true" @click="infoWindowOpen(0)"></bm-marker>
             <bm-marker :position=points[1] :dragging="true" @click="infoWindowOpen(1)"></bm-marker>
             <bm-marker :position=points[2] :dragging="true" @click="infoWindowOpen(2)"></bm-marker>
@@ -14,24 +13,14 @@
             <bm-marker :position=points[7] :dragging="true" @click="infoWindowOpen(7)"></bm-marker>
             <bm-marker :position=points[8] :dragging="true" @click="infoWindowOpen(8)"></bm-marker>
             <bm-marker :position=points[9] :dragging="true" @click="infoWindowOpen(9)"></bm-marker>
-            <!--
-            <x-dialog v-model="show" class="dialog-demo">
-               <div class="img-box">{{parkinfo}}</div>
-               <div @click="navigation()">
-                <span class="vux-close">Let's go!</span>
-               </div>
-               </x-dialog>-->
-            <group>
-              <x-switch title="transparent background" v-model="show"></x-switch>
-            </group>
-            
+
             <div v-transfer-dom>
               <popup v-model="show" height="280px" is-transparent>
                 <div style="width: 95%;background-color:#fff;height:250px;margin:0 auto;border-radius:5px;padding-top:10px;">
                   <div style="text-align: center;"><span style="font-size: 20px;">{{parkinfo}}</span></div>
                  <group>
-                  <cell title="Total parking spaces:" value="99"></cell>
-                  <cell title="Avaliable parking spaves:" value="44"></cell>
+                  <cell title="Total parking spaces:">{{AllEqus}}</cell>
+                  <cell title="Avaliable parking spaves:">{{LeftEqus}}</cell>
                   <cell title="Pay:" value="2 CNY/H"></cell>
                  </group>
                  <div style="padding:20px 15px;">
@@ -55,12 +44,15 @@ export default {
     data() {
         return {
             center: { lng: 0, lat: 0 },
-            markerPoint: { lng: 120.63, lat: 31.32 },
             zoom: 3,
             show: false,
             parkinfo: '',
             points: [],
             n:0,
+            AllEqus:'',
+            LeftEqus:'',
+            username: '',
+            apiUrl: 'http://localhost:8083/parkingApp/rest/parkport/parkport',
             myinfo: {
                 name: 'ur',
                 age: 2,
@@ -91,11 +83,25 @@ export default {
             this.show = true
             this.parkinfo = 'Parking Lot ' + n
             this.n = n
+            this.axios.get(this.apiUrl, {
+                       params: {
+                         parkPortId: n
+                       }
+                     })
+                     .then(response=>{
+                       console.log(response);
+                       this.AllEqus = response.data.equNum
+                       this.LeftEqus = response.data.unlockedEquNum
+                     })
+                     .catch(function (error) {
+                       console.log(error);
+                     });
+
         },
         handler({ BMap, map }) {
             console.log(BMap, map)
-            this.center.lng = 120.62
-            this.center.lat = 31.32
+            this.center.lng = 118.829
+            this.center.lat = 31.942
             this.zoom = 12
         },
         navigation() {
@@ -104,10 +110,28 @@ export default {
         }
     },
     mounted () {
-        for (var i = 0; i < 10; i++) {
-           const position = { lng: Math.random() * 0.1 + 120.6, lat: Math.random() * 0.1 + 31.3 }
-           this.points.push(position)
-        }
+       var position1 = { lng: 118.796, lat: 32.024 }
+       var position2 = { lng: 118.864, lat: 32.033 }
+       var position3 = { lng: 118.899, lat: 31.900 }
+       var position4 = { lng: 119.057, lat: 32.027 }
+       var position5 = { lng: 118.588, lat: 32.017 }
+       var position6 = { lng: 118.694, lat: 31.799 }
+       var position7 = { lng: 119.127, lat: 31.795 }
+       var position8 = { lng: 118.878, lat: 31.736 }
+       var position9 = { lng: 119.116, lat: 31.903 }
+       var position10 = { lng: 118.416, lat: 31.918 }
+       this.points.push(position1)
+       this.points.push(position2)
+       this.points.push(position3)
+       this.points.push(position4)
+       this.points.push(position5)
+       this.points.push(position6)
+       this.points.push(position7)
+       this.points.push(position8)
+       this.points.push(position9)
+       this.points.push(position10)
+       this.username = this.$route.params.username
+       this.$store.commit('setLoginAccount', this.username)
     }
 }
 </script>

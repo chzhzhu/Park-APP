@@ -43,7 +43,7 @@ import { XInput,Group,XButton } from 'vux'
                     var resDate = res.data
                     console.log(resDate)
                     if (resDate=='login success'){
-                        this.$router.push({path: '/Map'})
+                        this.$router.push({name: 'Map', params: {username:this.payload.username}})
                       }
                       else{
                         alert('Login Failed')
@@ -55,7 +55,7 @@ import { XInput,Group,XButton } from 'vux'
               },
               change (val) {
                     console.log('on change', val)
-              },
+              }
         }
     }
 </script>

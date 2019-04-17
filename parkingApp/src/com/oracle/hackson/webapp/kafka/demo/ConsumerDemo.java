@@ -45,30 +45,30 @@ public class ConsumerDemo extends ShutdownableThread{
             String parkPortStr = gson.toJson(record.value());
             BasicDBObject dbObjectPark = (BasicDBObject)JSON.parse(parkPortStr);
             Document documentPark = new Document(dbObjectPark.toMap());
-            String parkPortQuery = MongoDBUtils.findByPortId(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,Integer.valueOf(record.key()));
-            if (parkPortQuery == null){
-                MongoDBUtils.insert(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,documentPark);
-            } else {
+//            String parkPortQuery = MongoDBUtils.findByPortId(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,Integer.valueOf(record.key()));
+//            if (parkPortQuery == null){
+                //MongoDBUtils.insert(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,documentPark);
+//           } else {
                 String equJson = gson.toJson(record.value());
                 System.out.println(equJson);
 //                Document parkDocument = MongoDBUtils.updateDocument(equJson);
 //                MongoDBUtils.updateIntField(KafkaProperties.DATABASE,KafkaProperties.PARKPORT_COL,"parkPortId",record.key(),parkDocument);
-            }
-            for (Equipment e : record.value().equ) {
-                System.out.println("Received message: " + e.getEquId() + "'s alive statue is " + e.isAlive() + ", at offset " + record.offset());
-                String equQuery = MongoDBUtils.findEquByEquId(KafkaProperties.DATABASE,KafkaProperties.EQUIPMENT_COL,e.getEquId());
-                if(equQuery == null) {
-                    String equStr = gson.toJson(e);
-                    BasicDBObject dbObjectEqu = (BasicDBObject)JSON.parse(equStr);
-                    Document equDocument= new Document(dbObjectEqu.toMap());
-                    MongoDBUtils.insert(KafkaProperties.DATABASE, KafkaProperties.EQUIPMENT_COL, equDocument);
-                } else{
-                    String equStr = gson.toJson(e);
-                    System.out.println(equStr);
+//            }
+//            for (Equipment e : record.value().equ) {
+//                System.out.println("Received message: " + e.getEquId() + "'s alive statue is " + e.isAlive() + ", at offset " + record.offset());
+//                String equQuery = MongoDBUtils.findEquByEquId(KafkaProperties.DATABASE,KafkaProperties.EQUIPMENT_COL,e.getEquId());
+//                if(equQuery == null) {
+//                    String equStr = gson.toJson(e);
+//                    BasicDBObject dbObjectEqu = (BasicDBObject)JSON.parse(equStr);
+//                    Document equDocument= new Document(dbObjectEqu.toMap());
+//                    MongoDBUtils.insert(KafkaProperties.DATABASE, KafkaProperties.EQUIPMENT_COL, equDocument);
+//                } else{
+//                    String equStr = gson.toJson(e);
+//                    System.out.println(equStr);
 //                    Document equDocument = MongoDBUtils.updateDocument(equStr);
 //                    MongoDBUtils.updateIntField(KafkaProperties.DATABASE,KafkaProperties.EQUIPMENT_COL,"equId",String.valueOf(e.getEquId()),equDocument);
-                }
-            }
+//                }
+//            }
 
         }
     }
